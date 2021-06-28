@@ -12,6 +12,10 @@ body {
     flex-direction: column;
 }
 
+header h1 {
+    text-align: center;
+}
+
 p {
     margin-bottom: 1rem;
 }
@@ -58,6 +62,19 @@ textarea {
     font: inherit;
 }
 
+.browse {
+    margin-bottom: 1em;
+}
+
+.btn {
+    width: 100%;
+    display: block;
+}
+
 footer {
     margin-top: auto;
+}
+
+footer p {
+    text-align: center;
 }

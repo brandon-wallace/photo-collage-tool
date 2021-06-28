@@ -11,9 +11,8 @@
   <form enctype="multipart/form-data" method="POST" action="">
 
     {{ form.csrf_token }}
-    {{ form.image }}
-
-    <button class="btn btn--solid" type="submit">CHOOSE IMAGE</button>
+    {{ form.image(class='browse') }}
+    {{ form.submit(class='btn btn--solid') }}
 
   </form>
 
