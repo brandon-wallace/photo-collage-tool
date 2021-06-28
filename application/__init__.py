@@ -3,6 +3,7 @@
 import logging
 from os import environ
 from flask import Flask
+from flask_uploads import configure_uploads, IMAGES, UploadSet
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -20,6 +21,9 @@ def create_app():
 
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+    app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
+    images = UploadSet('images', IMAGES)
+    configure_uploads(app, images)
 
     from application.main.routes import main
     app.register_blueprint(main)

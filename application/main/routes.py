@@ -2,20 +2,29 @@ import secrets
 from os import path
 from PIL import Image
 from flask import Blueprint, render_template, current_app
+from flask_uploads import IMAGES, UploadSet
+from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
                  template_folder='templates',
                  static_folder='static')
 
+images = UploadSet('images', IMAGES)
 
-@main.route('/')
+
+@main.route('/', methods=['GET', 'POST'])
 def index():
     '''Index route'''
 
-    return render_template('main/index.html')
+    form = UploadForm()
+    if form.validate_on_submit():
+        filename = images.save(form.image.data)
+        return filename
+
+    return render_template('main/index.html', form=form)
 
 
-def save_profile_picture(image_file):
+def upload(image_file):
     '''Upload and save picture'''
 
     random_hex = secrets.token_hex(8)
