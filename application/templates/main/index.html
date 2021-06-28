@@ -7,19 +7,29 @@
 {% block content %}
 
   <p>Upload a profile picture.</p>
-  <form enctype="multipart/form-data" method="post" action="{{ url_for('upload') }}">
+
+  <form enctype="multipart/form-data" method="POST" action="">
+
+    {{ form.csrf_token }}
+    {{ form.image }}
+
+    {#
     <div class="upload">
       <button class="upload__button" type="button">browse</button>
-    
     </div>
-    <button class="btn btn--solid" type="button">CHOOSE IMAGE</button>
+    #}
+
+    <button class="btn btn--solid" type="submit">CHOOSE IMAGE</button>
+
   </form>
 
   <div class="previewer">
+
     <div id="preview__image">
       <img src="" id="preview__img" class="preview__img" />
       <span class="preview__text">Image Preview</span>
     </div>
+
   </div>
 
 {% endblock %}
