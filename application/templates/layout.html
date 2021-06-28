@@ -19,35 +19,35 @@
       <p style="color:#FC0000;text-align:center">Please enable Javascript</p>
     </noscript>
     
-      <!-- START header -->
+    <!-- START header -->
 
-      <header>
+    <header>
+
+      <h1>photo-collage-tool</h1>
+
+    </header>
+
+    <!-- END header -->
+
+    <!-- START main -->
+
+    <main>
+
+      {% block content %}{% endblock %}
   
-        <h1>photo-collage-tool</h1>
-  
-      </header>
+    </main>
 
-      <!-- END header -->
+    <!-- END main -->
 
-      <!-- START main -->
-  
-      <main>
+    <!-- START footer -->
 
-        {% block content %}{% endblock %}
-    
-      </main>
+    <footer>
 
-      <!-- END main -->
+      <p>&copy; 2021 created by <a href="https://brandonwallace.cc">brandon wallace</a></p>
 
-      <!-- START footer -->
+    </footer>
 
-      <footer>
-  
-        <p>&copy; 2021 created by <a href="https://brandonwallace.cc">brandon wallace</a></p>
-
-      </footer>
-
-      <!-- END footer -->
+    <!-- END footer -->
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
