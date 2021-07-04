@@ -42,6 +42,10 @@ h5 {font-size: 1.25rem;}
 
 small, .text_small {font-size: 0.8rem;}
 
+a {
+    color: #000000;
+}
+
 main {
     margin: 0 auto;
     display: block;
@@ -60,6 +64,12 @@ select,
 button,
 textarea {
     font: inherit;
+}
+
+.btn,
+.browse {
+    cursor: pointer;
+    letter-spacing: 2px;
 }
 
 .browse {
@@ -97,4 +107,8 @@ footer {
 
 footer p {
     text-align: center;
+}
+
+footer p a:hover {
+    color: blue;
 }
