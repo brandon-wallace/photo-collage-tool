@@ -7,7 +7,7 @@ from flask_uploads import configure_uploads, IMAGES, UploadSet
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('application_error.log')
+file_handler = logging.FileHandler('error.log')
 formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
                               %(name)s: %(message)s')
 file_handler.setFormatter(formatter)
