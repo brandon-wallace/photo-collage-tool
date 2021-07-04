@@ -1,7 +1,7 @@
 import secrets
 from os import path
 from PIL import Image
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, request, flash
 from flask_uploads import IMAGES, UploadSet
 from application.forms import UploadForm
 
@@ -12,16 +12,28 @@ main = Blueprint('main', __name__,
 images = UploadSet('images', IMAGES)
 
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET'])
 def index():
     '''Index route'''
 
     form = UploadForm()
-    if form.validate_on_submit():
-        filename = images.save(form.image.data)
-        return filename
 
     return render_template('main/index.html', form=form)
+
+
+@main.route('/', methods=['POST'])
+def uploads():
+    '''Display uploaded images'''
+
+    all_files = []
+    form = UploadForm()
+    if request.method == 'POST':
+        file_obj = request.files.getlist('image')
+        for img in file_obj:
+            images.save(img)
+            all_files.append(img.filename)
+        flash('Photos uploaded successfully', 'success')
+    return render_template('main/index.html', form=form, files=all_files)
 
 
 def upload(image_file):
