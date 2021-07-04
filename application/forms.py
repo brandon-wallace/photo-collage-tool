@@ -3,5 +3,5 @@ from wtforms import FileField, SubmitField
 
 
 class UploadForm(FlaskForm):
-    image = FileField('image')
+    images = FileField('images')
     submit = SubmitField('UPLOAD')
