@@ -71,6 +71,26 @@ textarea {
     display: block;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.flash-messages li {
+    border: solid;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #90EE90;
+}
+
+.failure {
+    background-color: #EE9090;
+}
+
 footer {
     margin-top: auto;
 }
