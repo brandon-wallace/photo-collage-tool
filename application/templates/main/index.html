@@ -11,9 +11,19 @@
   <form enctype="multipart/form-data" method="POST" action="">
 
     {{ form.csrf_token }}
-    {{ form.image(class='browse') }}
+    {{ form.image(class='browse', multiple='true', required='true') }}
     {{ form.submit(class='btn btn--solid') }}
 
   </form>
+
+  {% if files %}
+
+    {% for file in files %}
+
+      <img src="uploads/images/{{ file }}" alt="{{ file }}">
+
+    {% endfor %}
+
+  {% endif %}
 
 {% endblock %}
