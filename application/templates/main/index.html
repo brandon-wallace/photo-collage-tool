@@ -6,24 +6,38 @@
 
 {% block content %}
 
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+      <ul class="flash-messages">
+
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+
+      </ul>
+
+    {% endif %}
+  {% endwith %}
+
   <p>Upload a picture.</p>
 
   <form enctype="multipart/form-data" method="POST" action="">
 
     {{ form.csrf_token }}
-    {{ form.image(class='browse', multiple='true', required='true') }}
+    {{ form.images(class='browse', multiple='true') }}
     {{ form.submit(class='btn btn--solid') }}
 
   </form>
 
   {% if files %}
+    <ul>
+      {% for file in files %}
 
-    {% for file in files %}
+        <li>{{ file }}</li>
 
-      <img src="uploads/images/{{ file }}" alt="{{ file }}">
-
-    {% endfor %}
-
+      {% endfor %}
+    </ul>
   {% endif %}
 
 {% endblock %}
