@@ -1,4 +1,5 @@
-# from PIL import Image
+from PIL import Image
+import numpy
 from flask import Blueprint, render_template, request, flash
 from flask_uploads import IMAGES, UploadSet
 from application.forms import UploadForm
@@ -32,6 +33,22 @@ def uploads():
             all_files.append(img.filename)
         flash('Photos uploaded successfully', 'success')
     return render_template('main/index.html', form=form, files=all_files)
+
+
+def create_collage(images, direction='horizontal'):
+    '''Create collage of the images'''
+
+    all_images = []
+    for img in images:
+        pic = Image.open(img)
+        pic_arr = numpy.array(pic)
+        all_images.append(pic_arr)
+    if direction == 'vertical':
+        merged_images = numpy.vstack(all_images)
+    else:
+        merged_images = numpy.hstack(all_images)
+    collage = Image.fromarray(merged_images)
+    return collage.save('photo-collage.png')
 
 
 @main.route('/privacy_policy')
