@@ -6,6 +6,8 @@
 
 {% block content %}
 
+  <p>Upload images</p>
+
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
 
@@ -19,8 +21,6 @@
 
     {% endif %}
   {% endwith %}
-
-  <p>Upload a picture.</p>
 
   <form enctype="multipart/form-data" method="POST" action="">
 
