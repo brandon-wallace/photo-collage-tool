@@ -1,7 +1,5 @@
-import secrets
-from os import path
-from PIL import Image
-from flask import Blueprint, render_template, current_app, request, flash
+# from PIL import Image
+from flask import Blueprint, render_template, request, flash
 from flask_uploads import IMAGES, UploadSet
 from application.forms import UploadForm
 
@@ -34,22 +32,6 @@ def uploads():
             all_files.append(img.filename)
         flash('Photos uploaded successfully', 'success')
     return render_template('main/index.html', form=form, files=all_files)
-
-
-def upload(image_file):
-    '''Upload and save picture'''
-
-    random_hex = secrets.token_hex(8)
-    _, file_ext = path.splitext(image_file.filename)
-    picture_filename = random_hex + file_ext
-    picture_path = path.join(current_app.root_path,
-                             'static/images', picture_filename)
-    output_size = (125, 125)
-    pic = Image.open(image_file)
-    pic.thumbnail(output_size)
-    pic.save(picture_path)
-
-    return picture_filename
 
 
 @main.route('/privacy_policy')
