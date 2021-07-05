@@ -35,13 +35,14 @@ def uploads():
     return render_template('main/index.html', form=form, files=all_files)
 
 
-def create_collage(images, direction='horizontal'):
+def create_collage(images, size, direction='horizontal'):
     '''Create collage of the images'''
 
     all_images = []
     for img in images:
         pic = Image.open(img)
-        pic_arr = numpy.array(pic)
+        resized_pic = pic.resize(size, size)
+        pic_arr = numpy.array(resized_pic)
         all_images.append(pic_arr)
     if direction == 'vertical':
         merged_images = numpy.vstack(all_images)
