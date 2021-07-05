@@ -27,7 +27,7 @@ def uploads():
     all_files = []
     form = UploadForm()
     if request.method == 'POST':
-        file_obj = request.files.getlist('image')
+        file_obj = request.files.getlist('images')
         for img in file_obj:
             images.save(img)
             all_files.append(img.filename)
