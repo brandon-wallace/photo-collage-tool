@@ -123,6 +123,24 @@ textarea {
     letter-spacing: 2px;
 }
 
+.btn {
+    width: 100%;
+    color: #FFFFFF;
+    display: block;
+    max-width: 400px;
+    font-weight: bold;
+    font-size: 1.75rem;
+    border-radius: 4px;
+    margin: 0 auto 1em auto;
+    background-color: #0050CC;
+}
+
+.btn:hover {
+    color: #0050CC;
+    border: 2px solid #0050CC;
+    background-color: #FFFFFF;
+}
+
 .browse {
     margin-bottom: 1em;
 }
@@ -151,28 +169,21 @@ input[type="file"]::-webkit-file-upload-button:hover {
     background-color: #0050CC;
 }
 
-.btn {
-    width: 100%;
-    color: #FFFFFF;
-    display: block;
-    font-weight: bold;
-    font-size: 1.75rem;
-    border-radius: 4px;
-    margin-bottom: 1em;
-    background-color: #0050CC;
-}
-
-.btn:hover {
-    color: #0050CC;
-    border: 2px solid #0050CC;
-    background-color: #FFFFFF;
-}
-
 ul {
     padding: 0;
     margin: 0 auto 1em auto;
     max-width: 400px;
     list-style-type: none;
+}
+
+li {
+    font-weight: bold;
+    margin-bottom: .5em;
+	padding: .25em .75em;
+    letter-spacing: 1.4px;
+	box-sizing: border-box;
+	background-color: #FFFFFF;
+	border: 2px solid #0050CC;
 }
 
 .flash-messages li {
