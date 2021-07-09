@@ -1,7 +1,10 @@
+import ast
+from pathlib import Path
 from PIL import Image
 import numpy
 from flask import Blueprint, render_template, request, flash
 from flask_uploads import IMAGES, UploadSet
+from ..tasks import resize_image
 from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
@@ -35,13 +38,16 @@ def uploads():
     return render_template('main/index.html', form=form, files=all_files)
 
 
-def create_collage(images, size, direction='horizontal'):
+@main.route('/generate/<images>', methods=['GET', 'POST'])
+def create_collage(images, size=500, direction='horizontal'):
     '''Create collage of the images'''
 
     all_images = []
+    breakpoint()
+    images = ast.literal_eval(images)
     for img in images:
         pic = Image.open(img)
-        resized_pic = pic.resize(size, size)
+        resized_pic = resize_image.delay(pic, size)
         pic_arr = numpy.array(resized_pic)
         all_images.append(pic_arr)
     if direction == 'vertical':
@@ -50,6 +56,14 @@ def create_collage(images, size, direction='horizontal'):
         merged_images = numpy.hstack(all_images)
     collage = Image.fromarray(merged_images)
     return collage.save('photo-collage.png')
+
+
+# @main.route('/tasks', methods=['POST'])
+# def run_task():
+#     content = request.json
+#     task_type = content['type']
+#     task = create_task.delay(int(task_type))
+#     return jsonify({'task_id': task.id}), 202
 
 
 @main.route('/privacy_policy')

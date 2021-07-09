@@ -4,6 +4,8 @@ import logging
 from os import environ
 from flask import Flask
 from flask_uploads import configure_uploads, IMAGES, UploadSet
+from celery import Celery
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -12,6 +14,8 @@ formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
                               %(name)s: %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
+
+celery = Celery('tasks', backend='rpc://', broker='pyamqp://guest@127.0.0.1')
 
 
 def create_app():
