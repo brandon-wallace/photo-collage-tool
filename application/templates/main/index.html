@@ -14,7 +14,7 @@
       <ul class="flash-messages">
 
         {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
+          <li class="{{ category }}">{{ message }}<button type="button" class="close">&#10060;</button></li>
         {% endfor %}
 
       </ul>

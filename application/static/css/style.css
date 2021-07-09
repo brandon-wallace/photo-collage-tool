@@ -187,7 +187,12 @@ li {
 	border: 2px solid #0050CC;
 }
 
+.flash-messages {
+    display: flex;
+}
+
 .flash-messages li {
+    width: 100%;
     color: #FFFFFF;
     font-size: 1.2rem;
     font-weight: bold;
@@ -201,6 +206,13 @@ li {
 
 .failure {
     background-color: #EE9090;
+}
+
+.close {
+    border: 0;
+    color: #111111;
+    cursor: pointer;
+    background-color: transparent;
 }
 
 footer {
