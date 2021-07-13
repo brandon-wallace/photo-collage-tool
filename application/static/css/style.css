@@ -188,16 +188,21 @@ li {
 }
 
 .flash-messages {
+    width: 100%;
     display: flex;
+    margin: 1em auto;
+    max-width: 500px;
+    border-radius: 5px;
+	border: 2px solid #0050CC;
+    justify-content: space-between;
 }
 
-.flash-messages li {
-    width: 100%;
+.flash-messages p {
+    margin: 0;
     color: #FFFFFF;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
-    border-radius: 5px;
 }
 
 .success {
@@ -210,8 +215,10 @@ li {
 
 .close {
     border: 0;
+    padding: .5rem;
     color: #111111;
     cursor: pointer;
+    box-sizing: border-box;
     background-color: transparent;
 }
 

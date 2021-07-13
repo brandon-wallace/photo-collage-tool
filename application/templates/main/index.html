@@ -8,19 +8,18 @@
 
   <p>Upload images</p>
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-
-      <ul class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
 
         {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}<button type="button" class="close">&#10060;</button></li>
+          <div class="flash-messages {{ category }}">
+            <p>{{ message }}</p>
+            <span class="close">&#10060;</span>
+          </div>
         {% endfor %}
 
-      </ul>
-
-    {% endif %}
-  {% endwith %}
+      {% endif %}
+    {% endwith %}
 
   <form enctype="multipart/form-data" method="POST" action="">
 

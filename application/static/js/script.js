@@ -6,6 +6,6 @@ const closeMessageButton = document.querySelector('.close');
 
 if (closeMessageButton) {
     closeMessageButton.addEventListener('click', () => {
-        document.querySelector('.message').remove();
+        document.querySelector('.flash-messages').remove();
     });
 }
