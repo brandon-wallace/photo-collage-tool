@@ -4,7 +4,7 @@ from PIL import Image
 import numpy
 from flask import Blueprint, render_template, request, flash
 from flask_uploads import IMAGES, UploadSet
-from ..tasks import resize_image
+# from ..tasks import resize_image
 from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
@@ -38,32 +38,38 @@ def uploads():
     return render_template('main/index.html', form=form, files=all_files)
 
 
+def resize_image(img, size):
+    '''Resize images'''
+
+    location = Path('uploads/images')
+    pic = Image.open(Path(location / img))
+    resized_picture = pic.resize((size, size))
+    resized_picture.save(Path(location / 'pic_resized.jpg'))
+    print('Image resized')
+
+
 @main.route('/generate/<images>', methods=['GET', 'POST'])
 def create_collage(images, size=500, direction='horizontal'):
     '''Create collage of the images'''
 
     all_images = []
-    breakpoint()
     images = ast.literal_eval(images)
+    src_directory = Path('uploads/images')
     for img in images:
-        pic = Image.open(img)
-        resized_pic = resize_image.delay(pic, size)
+        pic = Image.open(Path(src_directory / img))
+        # resized_pic = resize_image.delay(pic, size)
+        resized_pic = pic.resize((500, 500))
+        print(resized_pic)
         pic_arr = numpy.array(resized_pic)
         all_images.append(pic_arr)
+    print(all_images)
     if direction == 'vertical':
         merged_images = numpy.vstack(all_images)
     else:
         merged_images = numpy.hstack(all_images)
     collage = Image.fromarray(merged_images)
-    return collage.save('photo-collage.png')
-
-
-# @main.route('/tasks', methods=['POST'])
-# def run_task():
-#     content = request.json
-#     task_type = content['type']
-#     task = create_task.delay(int(task_type))
-#     return jsonify({'task_id': task.id}), 202
+    collage.save(Path(src_directory / 'photo-collage.png'))
+    return
 
 
 @main.route('/privacy_policy')
