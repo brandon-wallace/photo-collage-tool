@@ -10,8 +10,8 @@ flask = "*"
 celery = "*"
 pillow = "*"
 flask-wtf = "*"
-flask-reuploaded = "*"
 numpy = "*"
+flask-reuploaded = "*"
 
 [requires]
 python_version = "3.7"
