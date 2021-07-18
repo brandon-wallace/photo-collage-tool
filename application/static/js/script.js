@@ -9,3 +9,19 @@ if (closeMessageButton) {
         document.querySelector('.flash-messages').remove();
     });
 }
+
+// Loader.
+const loader = document.querySelector('.spinner');
+const uploadForm = document.querySelector('.uploads');
+
+if (loader) {
+    window.addEventListener('pageshow', () => {
+        document.querySelector('.spinner').style.display = 'none';
+    });
+}
+
+const displayLoader = () => {
+    document.querySelector('.spinner').style.display = 'inline-block';
+};
+
+uploadForm.addEventListener('submit', displayLoader);
