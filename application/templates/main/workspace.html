@@ -1,0 +1,23 @@
+{# application/templates/main/index.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Photo Collage Tool{% endblock %}
+
+{% block content %}
+
+  <p>Uploaded images</p>
+
+  {% if files %}
+    <ul>
+      {% for file in files %}
+
+        <li>{{ file }}</li>
+
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <a  class="btn generate" href="{{ url_for('main.create_collage', images=files) }}">GENERATE</a>
+
+{% endblock %}
