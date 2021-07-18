@@ -8,20 +8,7 @@
 
   <p>Upload images</p>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-
-        {% for category, message in messages %}
-          <div class="flash-messages {{ category }}">
-            <p>{{ message }}</p>
-            <span class="close">&#10060;</span>
-          </div>
-        {% endfor %}
-
-      {% endif %}
-    {% endwith %}
-
-  <form enctype="multipart/form-data" method="POST" action="">
+  <form class="uploads" enctype="multipart/form-data" method="POST" action="">
 
     {{ form.csrf_token }}
     {{ form.images(class='browse', multiple='true') }}
@@ -39,7 +26,17 @@
     </ul>
   {% endif %}
 
-  <a href="{{ url_for('main.create_collage', images=files) }}">GENERATE</a>
-  <button type="button" class="btn generate">GENERATE</button>
+  <div class="center">
+
+    <div class="spinner">
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+    </div>
+
+  </div>
 
 {% endblock %}
