@@ -51,7 +51,7 @@ def create_collage(images, size=500, direction='horizontal'):
     '''Create collage of the images'''
 
     form = UploadForm()
-    # all_images = []
+    all_images = []
     images = ast.literal_eval(images)
     # src_directory = Path('uploads/images')
     for img in images:
@@ -59,9 +59,8 @@ def create_collage(images, size=500, direction='horizontal'):
         # resized_pic = resize_image.delay(img, size)
         resized_pic = resize_image(img, size)
         print(resized_pic)
-        # resized_pic = pic.resize((500, 500))
         # pic_arr = numpy.array(resized_pic)
-        # all_images.append(pic_arr)
+        all_images.append(resized_pic)
     # print(all_images)
     # if direction == 'vertical':
     #     merged_images = numpy.vstack(all_images)
