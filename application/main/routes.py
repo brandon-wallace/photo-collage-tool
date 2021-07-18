@@ -2,7 +2,8 @@ import ast
 # from pathlib import Path
 # from PIL import Image
 # import numpy
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import (Blueprint, render_template, request,
+                   redirect, url_for, flash, session)
 from flask_uploads import IMAGES, UploadSet
 from ..tasks import resize_image
 from application.forms import UploadForm
@@ -55,7 +56,8 @@ def create_collage(images, size=500, direction='horizontal'):
     # src_directory = Path('uploads/images')
     for img in images:
         # pic = Image.open(Path(src_directory / img))
-        resized_pic = resize_image.delay(img, size)
+        # resized_pic = resize_image.delay(img, size)
+        resized_pic = resize_image(img, size)
         print(resized_pic)
         # resized_pic = pic.resize((500, 500))
         # pic_arr = numpy.array(resized_pic)
@@ -67,7 +69,7 @@ def create_collage(images, size=500, direction='horizontal'):
     #     merged_images = numpy.hstack(all_images)
     # collage = Image.fromarray(merged_images)
     # collage.save(Path(src_directory / 'photo-collage.png'))
-    return render_template('main/index.html', form=form)
+    return render_template('main/workspace.html', form=form)
 
 
 @main.route('/privacy_policy')
