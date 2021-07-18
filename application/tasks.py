@@ -1,29 +1,24 @@
-import time
-from PIL import Image
+# import time
+from pathlib import Path
+from flask import current_app
 from application import celery
+from PIL import Image
 
 
 @celery.task
 def resize_image(img, size):
     '''Resize images'''
 
-    pic = Image.open(img)
+    location = Path('uploads/images')
+    pic = Image.open(str(Path(location / img)))
+    print(pic)
     resized_picture = pic.resize((size, size))
-    return resized_picture
-
-
-@celery.task
-def make_list():
-    '''Concatenation'''
-
-    my_list = []
-    for item in range(100000):
-        my_list = my_list + [item]
-
-
-@celery.task(name="create_task")
-def create_task(task_type):
-    '''Create a Celery task'''
-
-    time.sleep(int(task_type) * 10)
-    return True
+    return resized_picture.save(Path(location / 'pic_resized.jpg'))
+#
+#
+# @celery.task(name="create_task")
+# def create_task(task_type):
+#     '''Create a Celery task'''
+#
+#     time.sleep(int(task_type) * 10)
+#     return True
