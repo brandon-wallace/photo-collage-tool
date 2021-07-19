@@ -224,6 +224,18 @@ li {
     background-color: transparent;
 }
 
+.thumbnails {
+    width: 100%;
+    margin: 2em auto;
+    max-width: 500px;
+}
+
+.thumbnail__images {
+    width: 100%;
+    height: auto;
+    max-width: 100px;
+}
+
 footer {
     margin-top: auto;
 }

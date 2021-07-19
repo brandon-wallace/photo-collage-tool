@@ -131,6 +131,6 @@ dmypy.json
 # Custom
 application/*.db
 *.swp
-uploads/*
+application/static/images/uploads/*
 
 ### End

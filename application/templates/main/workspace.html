@@ -1,4 +1,4 @@
-{# application/templates/main/index.html #}
+{# application/templates/main/workspace.html #}
 
 {% extends "layout.html" %}
 
@@ -17,6 +17,18 @@
       {% endfor %}
     </ul>
   {% endif %}
+
+  <div class="thumbnails">
+
+    {% if files %}
+      {% for file in files %}
+
+        <img class="thumbnail__images" src="static/images/uploads/{{ file | default('broken_image.png') }}" alt="picture">
+
+      {% endfor %}
+    {% endif %}
+
+  </div>
 
   <a  class="btn generate" href="{{ url_for('main.create_collage', images=files) }}">GENERATE</a>
 

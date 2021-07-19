@@ -25,7 +25,7 @@ def create_app():
 
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
-    app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
+    app.config['UPLOADED_IMAGES_DEST'] = 'application/static/images/uploads'
     images = UploadSet('images', IMAGES)
     configure_uploads(app, images)
 
