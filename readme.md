@@ -31,9 +31,13 @@ UPLOADED_IMAGES_DEST='application/static/images/uploads'
 $ sudo apt install rabbitmq-server
 ```
 
+Start a celery worker.
+
 ```
 $ celery -A application worker --loglevel=INFO
 ```
+
+In another terminal start the application.
 
 ```
 $ flask run
