@@ -24,6 +24,7 @@ FLASK_ENV=development
 SECRET_KEY=<your_secret_key>
 CELERY_RESULT_BACKEND='rpc://'  # For RabbitMQ
 CELERY_BROKER_URL='<your_rabbitmq_url>'
+UPLOADED_IMAGES_DEST='application/static/images/uploads'
 ```
 
 ```
