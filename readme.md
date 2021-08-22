@@ -31,6 +31,19 @@ UPLOADED_IMAGES_DEST='application/static/images/uploads'
 $ sudo apt install rabbitmq-server
 ```
 
+Enable and start the rabbitmq server.
+
+```
+$ sudo systemctl enable rabbitmq-server
+$ sudo systemctl start rabbitmq-server
+```
+
+Check status of the server.
+
+```
+$ sudo systemctl status rabbitmq-server
+```
+
 Start a celery worker.
 
 ```
@@ -42,6 +55,9 @@ In another terminal start the application.
 ```
 $ flask run
 ```
+
+Browse to http://127.0.0.1:5000
+
 
 ## License
 
