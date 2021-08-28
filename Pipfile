@@ -6,12 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-flask = "*"
-celery = "*"
 pillow = "*"
 flask-wtf = "*"
 numpy = "*"
 flask-reuploaded = "*"
+celery = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"
