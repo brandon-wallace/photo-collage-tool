@@ -1,18 +1,21 @@
 from os import environ
 from pathlib import Path
 # from flask import current_app
-# from application import images
+from application import celery
 from PIL import Image
+from time import sleep
 
 default_path = environ.get('UPLOADED_IMAGES_DEST')
 
 
-def rename_image(img, label):
+# @celery.task
+def rename_image(label, img):
     '''Rename images'''
 
     return f'{label}_{img}'
 
 
+# @celery.task
 def save_images_to(path):
     '''Set directory to save images to'''
 
@@ -20,7 +23,7 @@ def save_images_to(path):
     return path_to_file
 
 
-# @celery.task
+@celery.task
 def resize_image(img, size):
     '''Resize images'''
 
@@ -29,9 +32,10 @@ def resize_image(img, size):
     pic = Image.open(Path(location / img))
     pic = pic.convert('RGBA')
     resized_picture = pic.resize((size, size))
-    return resized_picture.save(Path(location / new_img), format='PNG')
+    return resized_picture.save(str(Path(location / new_img)), format='PNG')
 
 
+@celery.task
 def create_thumbnail(img, size):
     '''Create thumbnail images'''
 
