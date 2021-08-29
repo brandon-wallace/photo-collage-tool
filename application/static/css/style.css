@@ -212,7 +212,7 @@ li {
 }
 
 .failure {
-    background-color: #EE9090;
+    background-color: #EA3D3D;
 }
 
 .close {
@@ -220,6 +220,8 @@ li {
     padding: .5rem;
     color: #111111;
     cursor: pointer;
+    font-size: 2rem;
+    line-height: 26px;
     box-sizing: border-box;
     background-color: transparent;
 }

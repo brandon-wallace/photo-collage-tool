@@ -33,6 +33,9 @@ def uploads():
     form = UploadForm()
     if request.method == 'POST':
         file_obj = request.files.getlist('images')
+        if len(file_obj) < 2:
+            flash('At least 2 images are required.', 'failure')
+            return redirect(url_for('main.index'))
         for img in file_obj:
             images.save(img)
             all_files.append(img.filename)
