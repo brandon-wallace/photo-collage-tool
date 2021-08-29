@@ -1,17 +1,19 @@
 import ast
-# from pathlib import Path
-# from PIL import Image
-# import numpy
+from os import environ
+from pathlib import Path
+from PIL import Image
 from flask import (Blueprint, render_template, request,
                    redirect, url_for, flash, session)
 from flask_uploads import IMAGES, UploadSet
-from ..tasks import resize_image
+from ..tasks import (resize_image, save_images_to,
+                     merge_images, create_thumbnail)
 from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
                  template_folder='templates',
                  static_folder='static')
 
+default_path = environ.get('UPLOADED_IMAGES_DEST')
 images = UploadSet('images', IMAGES)
 
 
@@ -34,6 +36,7 @@ def uploads():
         for img in file_obj:
             images.save(img)
             all_files.append(img.filename)
+            create_thumbnail(img.filename)
             session['uploads'] = all_files
         flash('Photos uploaded successfully', 'success')
         return redirect(url_for('main.workspace'))
@@ -53,21 +56,20 @@ def create_collage(images, size=500, direction='horizontal'):
     form = UploadForm()
     all_images = []
     images = ast.literal_eval(images)
-    # src_directory = Path('uploads/images')
+    location = save_images_to(default_path)
     for img in images:
-        # pic = Image.open(Path(src_directory / img))
-        # resized_pic = resize_image.delay(img, size)
-        resized_pic = resize_image(img, size)
-        print(resized_pic)
+        resized_pic = resize_image.delay(img, size)
+        print(resized_pic.task_id)
+        print(resized_pic.task.id)
+        # resized_pic = resize_image(img, size)
         # pic_arr = numpy.array(resized_pic)
         all_images.append(resized_pic)
-    # print(all_images)
-    # if direction == 'vertical':
-    #     merged_images = numpy.vstack(all_images)
-    # else:
-    #     merged_images = numpy.hstack(all_images)
-    # collage = Image.fromarray(merged_images)
-    # collage.save(Path(src_directory / 'photo-collage.png'))
+    if direction == 'vertical':
+        merged_images = merge_images(all_images, 'vertical')
+    else:
+        merged_images = merge_images(all_images)
+    collage = Image.fromarray(merged_images, 'RGB')
+    collage.save(Path(location / 'photo-collage.png'))
     return render_template('main/workspace.html', form=form)
 
 

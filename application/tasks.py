@@ -1,21 +1,18 @@
 from os import environ
 from pathlib import Path
-# from flask import current_app
+import numpy
 from application import celery
 from PIL import Image
-from time import sleep
 
 default_path = environ.get('UPLOADED_IMAGES_DEST')
 
 
-# @celery.task
 def rename_image(label, img):
     '''Rename images'''
 
     return f'{label}_{img}'
 
 
-# @celery.task
 def save_images_to(path):
     '''Set directory to save images to'''
 
@@ -31,17 +28,29 @@ def resize_image(img, size):
     location = save_images_to(default_path)
     pic = Image.open(Path(location / img))
     pic = pic.convert('RGBA')
-    resized_picture = pic.resize((size, size))
-    return resized_picture.save(str(Path(location / new_img)), format='PNG')
+    resized_pic = pic.resize((size, size))
+    return resized_pic.save(str(Path(location / new_img)), format='PNG')
 
 
 @celery.task
-def create_thumbnail(img, size):
+def create_thumbnail(img):
     '''Create thumbnail images'''
 
     new_img = rename_image('thumbnail', img)
     location = save_images_to(default_path)
     pic = Image.open(Path(location / img))
     pic = pic.convert('RGBA')
-    thumbnail_image = pic.thumbnail()
-    return thumbnail_image.save(Path(location / new_img), format='PNG')
+    pic.thumbnail((50, 50))
+    return pic.save(Path(location / new_img), format='PNG')
+
+
+@celery.task
+def merge_images(img_files, orientation='horizontal'):
+    '''Merge images together'''
+
+    images = [Image.open(img) for img in img_files]
+    img_arr = [numpy.asarray(img) for img in images]
+    img_fromarr = [numpy.fromarray(img) for img in img_arr]
+    if orientation == 'vertical':
+        return numpy.vstack(tuple(img_fromarr))
+    return numpy.hstack(tuple(img_fromarr))
