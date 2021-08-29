@@ -28,6 +28,7 @@ def create_app():
     app.config['UPLOADED_IMAGES_DEST'] = 'application/static/images/uploads'
     images = UploadSet('images', IMAGES)
     configure_uploads(app, images)
+    celery.conf.update(app.config)
 
     from application.main.routes import main
     app.register_blueprint(main)
