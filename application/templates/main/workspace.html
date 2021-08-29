@@ -23,7 +23,7 @@
     {% if files %}
       {% for file in files %}
 
-        <img class="thumbnail__images" src="static/images/uploads/{{ file | default('broken_image.png') }}" alt="picture">
+        <img class="thumbnail__images" src="static/images/uploads/thumbnail_{{ file | default('broken_image.png') }}" alt="PNG Image">
 
       {% endfor %}
     {% endif %}
