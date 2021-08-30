@@ -40,7 +40,7 @@ def create_thumbnail(img):
     location = save_images_to(default_path)
     pic = Image.open(Path(location / img))
     pic = pic.convert('RGBA')
-    pic.thumbnail((50, 50))
+    pic.thumbnail((100, 100))
     return pic.save(Path(location / new_img), format='PNG')
 
 
@@ -48,9 +48,18 @@ def create_thumbnail(img):
 def merge_images(img_files, orientation='horizontal'):
     '''Merge images together'''
 
-    images = [Image.open(img) for img in img_files]
-    img_arr = [numpy.asarray(img) for img in images]
-    img_fromarr = [numpy.fromarray(img) for img in img_arr]
-    if orientation == 'vertical':
-        return numpy.vstack(tuple(img_fromarr))
-    return numpy.hstack(tuple(img_fromarr))
+    images = [Image.open(x) for x in img_files]
+    convert_to_png = [x.convert('RGBA') for x in images]
+    resized_png = [i.resize((400, 400)) for i in convert_to_png]
+    img_array = [numpy.asarray(i) for i in resized_png]
+    for i in img_array:
+        print(i)
+    merged_images = numpy.hstack((img_array))
+    collage = Image.fromarray(merged_images)
+    # images = [Image.open(img) for img in img_files]
+    # img_arr = [numpy.asarray(img) for img in images]
+    # img_fromarr = [numpy.fromarray(img) for img in img_arr]
+    # if orientation == 'vertical':
+    #     return numpy.vstack(tuple(img_fromarr))
+    # return numpy.hstack(tuple(img_fromarr))
+    return collage
