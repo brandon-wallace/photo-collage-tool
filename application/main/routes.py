@@ -37,6 +37,9 @@ def uploads():
         if len(file_obj) < 2:
             flash('At least 2 images are required.', 'failure')
             return redirect(url_for('main.index'))
+        if len(file_obj) > 5:
+            flash('Maximum number of images exceeded.', 'failure')
+            return redirect(url_for('main.index'))
         for img in file_obj:
             images.save(img)
             all_files.append(img.filename)
@@ -56,7 +59,7 @@ def workspace(uploads=None):
 
 
 @main.route('/generate/<images>', methods=['GET', 'POST'])
-def create_collage(images, size=500, direction='horizontal'):
+def create_collage(images, size=500):
     '''Create collage of the images'''
 
     form = UploadForm()
@@ -64,18 +67,21 @@ def create_collage(images, size=500, direction='horizontal'):
     images = ast.literal_eval(images)
     location = save_images_to(default_path)
     if form.validate_on_submit():
+        # padding = request.form.get('padding')
+        # background = request.form.get('background')
+        orientation = request.form.get('orientation')
         # for img in images:
-            #resized_pic = resize_image.delay(img, size)
+            #resized_pic = resize_image.delay(img, 400)
             # ---------------------------------------------------
-        open_files = [Image.open(Path(location / x)) for x in images]
-        convert_to_png = [x.convert('RGBA') for x in open_files]
-        resized_pic = [x.resize((400, 400)) for x in convert_to_png]
-        img_array = [numpy.asarray(x) for x in resized_pic]
-        all_images = [i for i in img_array]
+        open_files = [Image.open(Path(location / img)) for img in images]
+        convert_to_png = [img.convert('RGBA') for img in open_files]
+        resized_pic = [img.resize((500, 500)) for img in convert_to_png]
+        img_array = [numpy.asarray(img) for img in resized_pic]
+        all_images = [img for img in img_array]
             # print(resized_pic.task_id)
             # pic_arr = numpy.array(resized_pic)
             # all_images.append(resized_pic)
-        if direction == 'vertical':
+        if orientation == 'vertical':
             # merged_images = merge_images.delay(all_images, 'vertical')
             pass
         else:
