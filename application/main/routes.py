@@ -2,11 +2,12 @@ import ast
 from os import environ
 from pathlib import Path
 from PIL import Image
-from flask import (Blueprint, render_template, request,
-                   redirect, url_for, flash, session)
+import numpy
+from flask import (Blueprint, render_template, request, abort,
+                   redirect, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from ..tasks import (resize_image, save_images_to,
-                     merge_images, create_thumbnail)
+                     create_thumbnail)
 from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
@@ -49,7 +50,9 @@ def uploads():
 @main.route('/workspace')
 def workspace(uploads=None):
 
-    return render_template('main/workspace.html', files=session['uploads'])
+    form = UploadForm()
+    return render_template('main/workspace.html',
+                           form=form, files=session['uploads'])
 
 
 @main.route('/generate/<images>', methods=['GET', 'POST'])
@@ -60,20 +63,63 @@ def create_collage(images, size=500, direction='horizontal'):
     all_images = []
     images = ast.literal_eval(images)
     location = save_images_to(default_path)
-    for img in images:
-        resized_pic = resize_image.delay(img, size)
-        print(resized_pic.task_id)
-        print(resized_pic.task.id)
-        # resized_pic = resize_image(img, size)
-        # pic_arr = numpy.array(resized_pic)
-        all_images.append(resized_pic)
-    if direction == 'vertical':
-        merged_images = merge_images(all_images, 'vertical')
-    else:
-        merged_images = merge_images(all_images)
-    collage = Image.fromarray(merged_images, 'RGB')
-    collage.save(Path(location / 'photo-collage.png'))
+    if form.validate_on_submit():
+        # for img in images:
+            #resized_pic = resize_image.delay(img, size)
+            # ---------------------------------------------------
+        open_files = [Image.open(Path(location / x)) for x in images]
+        convert_to_png = [x.convert('RGBA') for x in open_files]
+        resized_pic = [x.resize((400, 400)) for x in convert_to_png]
+        img_array = [numpy.asarray(x) for x in resized_pic]
+        all_images = [i for i in img_array]
+            # print(resized_pic.task_id)
+            # pic_arr = numpy.array(resized_pic)
+            # all_images.append(resized_pic)
+        if direction == 'vertical':
+            # merged_images = merge_images.delay(all_images, 'vertical')
+            pass
+        else:
+        #     merged_images = merge_images.delay(all_images)
+            pass
+        # ---------------------------------------------------
+        image_array = [numpy.asarray(img) for img in all_images]
+        images_list = []
+        for img in image_array:
+            images_list.append(img)
+        merged_images = numpy.hstack((images_list))
+        collage = Image.fromarray(merged_images)
+        collage.save(Path(location / 'photo-collage-new.png'))
+        # ---------------------------------------------------
+        # collage = Image.fromarray(merged_images, 'RGB')
+        # collage = merge_images(all_images)
+        # collage.save(Path(location / 'photo-collage.png'))
+        # collage.save(Path(location / 'photo-collage.png'))
+        # filename = Path(location / 'photo-collage.png')
+        session['collage'] = 'photo-collage-new.png'
+        # session['collage'] = filename
+        # return redirect(url_for('main.collage'))
+        return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
+
+
+@main.route('/download')
+def download_image():
+    '''Download image'''
+
+    try:
+        return send_from_directory(environ.get('UPLOADED_IMAGES_DEST'),
+                                   default_path,
+                                   filename=session['collage'],
+                                   as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
+
+@main.route('/result')
+def display_collage():
+    '''Display collage to download'''
+
+    return render_template('main/result.html', image=session['collage'])
 
 
 @main.route('/privacy_policy')
