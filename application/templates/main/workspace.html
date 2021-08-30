@@ -30,6 +30,24 @@
 
   </div>
 
-  <a  class="btn generate" href="{{ url_for('main.create_collage', images=files) }}">GENERATE</a>
+  <form action="{{ url_for('main.create_collage', images=files) }}" method="POST">
+  
+    {{ form.csrf_token }}
+
+    <div class="direction">
+
+      <label for="horizontal">Horizontal
+        <input type="radio" name="orientation" id="horizontal" value="horizontal" checked>
+      </label>
+
+      <label for="vertical">Vertical
+        <input type="radio" name="orientation" id="vertical" value="vertical">
+      </label>
+
+    </div>
+
+    <button class="btn generate" type="submit">GENERATE</button>
+
+  </form>
 
 {% endblock %}
