@@ -1,0 +1,19 @@
+{# application/templates/main/result.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Photo Collage Tool{% endblock %}
+
+{% block content %}
+  
+  {% if image %}
+
+    <div class="collage">
+      <img src="../static/images/uploads/{{ image }}">
+    </div>
+    
+    <a class="btn" href="{{ url_for('main.download_image') }}" alt="PNG Collage Image">DOWNLOAD</a>
+
+  {% endif %}
+
+{% endblock %}

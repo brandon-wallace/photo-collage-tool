@@ -226,7 +226,8 @@ li {
     background-color: transparent;
 }
 
-.thumbnails {
+.thumbnails,
+.direction {
     width: 100%;
     margin: 2em auto;
     max-width: 500px;
@@ -248,6 +249,19 @@ footer p {
 
 footer p a:hover {
     color: blue;
+}
+
+.collage {
+    width: 100%;
+    padding: 1em;
+    margin: 0 auto;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+.collage img {
+    width: 100;
+    height: auto;
 }
 
 .center {
