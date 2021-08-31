@@ -1,7 +1,7 @@
 import ast
 from os import environ
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageOps
 import numpy
 from flask import (Blueprint, render_template, request, abort,
                    redirect, url_for, flash, session, send_from_directory)
@@ -67,8 +67,8 @@ def create_collage(images, size=500):
     images = ast.literal_eval(images)
     location = save_images_to(default_path)
     if form.validate_on_submit():
-        # padding = request.form.get('padding')
-        # background = request.form.get('background')
+        border = request.form.get('border')
+        background = request.form.get('background')
         orientation = request.form.get('orientation')
         # for img in images:
             #resized_pic = resize_image.delay(img, 400)
@@ -76,7 +76,9 @@ def create_collage(images, size=500):
         open_files = [Image.open(Path(location / img)) for img in images]
         convert_to_png = [img.convert('RGBA') for img in open_files]
         resized_pic = [img.resize((500, 500)) for img in convert_to_png]
-        img_array = [numpy.asarray(img) for img in resized_pic]
+        expand_border = [ImageOps.expand(img, border=int(border),
+                         fill=background) for img in resized_pic]
+        img_array = [numpy.asarray(img) for img in expand_border]
         all_images = [img for img in img_array]
             # print(resized_pic.task_id)
             # pic_arr = numpy.array(resized_pic)
