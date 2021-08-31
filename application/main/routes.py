@@ -1,6 +1,7 @@
 import ast
 from os import environ
 from pathlib import Path
+from datetime import datetime
 from PIL import Image, ImageOps
 import numpy
 from flask import (Blueprint, render_template, request, abort, redirect,
@@ -99,14 +100,15 @@ def create_collage(images, size=500):
         else:
             merged_images = numpy.hstack((images_list))
         collage = Image.fromarray(merged_images)
-        collage.save(Path(location / 'photo-collage-new.png'))
+        filename = f'collage_{datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")}.png'
+        collage.save(Path(location / filename))
         # ---------------------------------------------------
         # collage = Image.fromarray(merged_images, 'RGB')
         # collage = merge_images(all_images)
         # collage.save(Path(location / 'photo-collage.png'))
         # collage.save(Path(location / 'photo-collage.png'))
         # filename = Path(location / 'photo-collage.png')
-        session['collage'] = 'photo-collage-new.png'
+        session['collage'] = filename
         # session['collage'] = filename
         # return redirect(url_for('main.collage'))
         return redirect(url_for('main.display_collage'))
