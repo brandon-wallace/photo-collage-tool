@@ -1,8 +1,8 @@
 from os import environ
 from pathlib import Path
 import numpy
-from application import celery
 from PIL import Image
+from application import celery
 
 default_path = environ.get('UPLOADED_IMAGES_DEST')
 
@@ -48,12 +48,10 @@ def create_thumbnail(img):
 def merge_images(img_files, orientation='horizontal'):
     '''Merge images together'''
 
-    images = [Image.open(x) for x in img_files]
-    convert_to_png = [x.convert('RGBA') for x in images]
-    resized_png = [i.resize((400, 400)) for i in convert_to_png]
-    img_array = [numpy.asarray(i) for i in resized_png]
-    for i in img_array:
-        print(i)
+    images = [Image.open(img) for img in img_files]
+    convert_to_png = [img.convert('RGBA') for img in images]
+    resized_png = [img.resize((400, 400)) for img in convert_to_png]
+    img_array = [numpy.asarray(img) for img in resized_png]
     merged_images = numpy.hstack((img_array))
     collage = Image.fromarray(merged_images)
     # images = [Image.open(img) for img in img_files]
