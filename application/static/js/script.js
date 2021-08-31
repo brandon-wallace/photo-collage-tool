@@ -1,5 +1,3 @@
-console.log('Javascript file enabled');
-
 
 // Close flash messages.
 const closeMessageButton = document.querySelector('.close');
@@ -10,7 +8,7 @@ if (closeMessageButton) {
     });
 }
 
-// Loader.
+// Display loader icon.
 const loader = document.querySelector('.spinner');
 const uploadForm = document.querySelector('.uploads');
 
