@@ -260,7 +260,7 @@ footer p a:hover {
 
 .collage {
     width: 100%;
-    padding: 1em;
+    padding: 2em;
     margin: 0 auto;
     max-width: 500px;
     box-sizing: border-box;
@@ -373,4 +373,10 @@ footer p a:hover {
   100% {
     opacity: 0;
   }
+}
+
+@media only screen and (min-width: 800px) {
+    .collage {
+        max-width: 800px;
+    }
 }
