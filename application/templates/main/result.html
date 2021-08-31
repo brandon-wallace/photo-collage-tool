@@ -12,7 +12,7 @@
       <img src="../static/images/uploads/{{ image }}">
     </div>
     
-    <a class="btn" href="{{ url_for('main.download_image') }}" alt="PNG Collage Image">DOWNLOAD</a>
+    <a class="btn" href="{{ url_for('main.download_image', filename=image) }}" alt="PNG Collage Image">DOWNLOAD</a>
 
   {% endif %}
 

@@ -3,8 +3,8 @@ from os import environ
 from pathlib import Path
 from PIL import Image, ImageOps
 import numpy
-from flask import (Blueprint, render_template, request, abort,
-                   redirect, url_for, flash, session, send_from_directory)
+from flask import (Blueprint, render_template, request, abort, redirect,
+                   url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from ..tasks import (resize_image, save_images_to,
                      create_thumbnail)
@@ -113,18 +113,16 @@ def create_collage(images, size=500):
     return render_template('main/workspace.html', form=form)
 
 
-@main.route('/download')
-def download_image():
+@main.route('/download/<filename>')
+def download_image(filename):
     '''Download collage image'''
 
-    print(session['collage'])
-    print(environ.get('UPLOADED_IMAGES_DEST'))
+    path = environ.get('DOWNLOAD_URL')
     try:
-        return send_from_directory(directory='', path=environ.get('UPLOADED_IMAGES_DEST'), filename=session['collage'], as_attachment=True)
-    except FileNotFoundError as e:
-        print(e)
-        # abort(404)
-        return e
+        return send_from_directory(path, session['collage'],
+                                   as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
 
 
 @main.route('/result')
