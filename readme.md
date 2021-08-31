@@ -47,7 +47,7 @@ $ sudo systemctl status rabbitmq-server
 Start a celery worker.
 
 ```
-$ celery -A application worker --loglevel=INFO
+$ celery -A application.tasks worker --loglevel=INFO
 ```
 
 In another terminal start the application.
