@@ -262,13 +262,18 @@ footer p a:hover {
     width: 100%;
     padding: 1em;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 500px;
     box-sizing: border-box;
 }
 
 .collage img {
-    width: 100;
+    width: 100%;
     height: auto;
+}
+
+.error-text {
+    color: #022A73;
+    text-align: center;
 }
 
 .center {
