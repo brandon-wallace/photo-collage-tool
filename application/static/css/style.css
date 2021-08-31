@@ -61,7 +61,7 @@ header h1 {
     margin: 1rem 0 0 0;
     text-align: center;
     transform: scale(1) rotate(-5deg) translateX(-13px) 
-        translateY(0) skewX(-5deg) skewY(-1deg);
+               translateY(0) skewX(-5deg) skewY(-1deg);
     text-shadow: 1.25px 1.25px 0 #003A93, 
         -1.25px -1.25px 0 #003A93, 
         -1.25px 1.25px 0 #003A93, 
@@ -92,9 +92,19 @@ main {
 main p {
     width: 100%;
     max-width: 500px;
-    font-size: 2.2rem;
+    font-size: 1rem;
     text-align: center;
-    margin: 0 auto .5em auto;
+    margin: 0 auto .25em auto;
+}
+
+section {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+section p {
+    text-align: justify;
 }
 
 form {
@@ -106,7 +116,6 @@ form {
 img {
     width: 100%;
     height: auto;
-    display: block;
 }
 
 input,
@@ -279,6 +288,7 @@ footer p a:hover {
 }
 
 .error-image {
+    display: block;
     margin: 0 auto;
     max-width: 300px;
 }
@@ -286,6 +296,10 @@ footer p a:hover {
 .center {
     display: flex;
     justify-content: center;
+}
+
+.large {
+    font-size: 2.2rem;
 }
 
 .spinner {
