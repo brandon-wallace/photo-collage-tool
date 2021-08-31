@@ -5,7 +5,14 @@ Find the project requirements here: [Online photo collage tool](https://www.code
 
 ## Technologies used
 
-Built with Python3 Flask RabbitMQ Celery Pillow Numpy
+Built with:
+
+* Python3 
+* Flask 
+* RabbitMQ 
+* Celery 
+* Pillow 
+* Numpy
 
 ## Screenshot 
 
