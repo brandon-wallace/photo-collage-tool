@@ -104,8 +104,9 @@ form {
 }
 
 img {
+    width: 100%;
     height: auto;
-    max-width: 100%;
+    display: block;
 }
 
 input,
@@ -275,6 +276,11 @@ footer p a:hover {
 .error-text {
     color: #022A73;
     text-align: center;
+}
+
+.error-image {
+    margin: 0 auto;
+    max-width: 300px;
 }
 
 .center {
