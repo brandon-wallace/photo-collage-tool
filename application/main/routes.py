@@ -83,18 +83,21 @@ def create_collage(images, size=500):
             # print(resized_pic.task_id)
             # pic_arr = numpy.array(resized_pic)
             # all_images.append(resized_pic)
-        if orientation == 'vertical':
+        # if orientation == 'vertical':
             # merged_images = merge_images.delay(all_images, 'vertical')
-            pass
-        else:
+            # pass
+        # else:
         #     merged_images = merge_images.delay(all_images)
-            pass
+            # pass
         # ---------------------------------------------------
         image_array = [numpy.asarray(img) for img in all_images]
         images_list = []
         for img in image_array:
             images_list.append(img)
-        merged_images = numpy.hstack((images_list))
+        if orientation == 'vertical':
+            merged_images = numpy.vstack((images_list))
+        else:
+            merged_images = numpy.hstack((images_list))
         collage = Image.fromarray(merged_images)
         collage.save(Path(location / 'photo-collage-new.png'))
         # ---------------------------------------------------
@@ -112,15 +115,16 @@ def create_collage(images, size=500):
 
 @main.route('/download')
 def download_image():
-    '''Download image'''
+    '''Download collage image'''
 
+    print(session['collage'])
+    print(environ.get('UPLOADED_IMAGES_DEST'))
     try:
-        return send_from_directory(environ.get('UPLOADED_IMAGES_DEST'),
-                                   default_path,
-                                   filename=session['collage'],
-                                   as_attachment=True)
-    except FileNotFoundError:
-        abort(404)
+        return send_from_directory(directory='', path=environ.get('UPLOADED_IMAGES_DEST'), filename=session['collage'], as_attachment=True)
+    except FileNotFoundError as e:
+        print(e)
+        # abort(404)
+        return e
 
 
 @main.route('/result')
