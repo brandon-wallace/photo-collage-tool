@@ -170,21 +170,28 @@ input[type="file"]::-webkit-file-upload-button:hover {
     background-color: #0050CC;
 }
 
+input[type="number"] {
+    width: 55px;
+}
+
 ul {
     padding: 0;
-    margin: 0 auto 1em auto;
     max-width: 500px;
     list-style-type: none;
+    margin: 0 auto 1em auto;
 }
 
 li {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     margin-bottom: .5em;
 	padding: .25em .75em;
 	box-sizing: border-box;
     font-family: sans-serif;
+}
+
+.filenames li {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 	background-color: #FFFFFF;
 	border: 2px solid #0050CC;
 }
@@ -226,8 +233,8 @@ li {
     background-color: transparent;
 }
 
-.thumbnails,
-.direction {
+.options, 
+.thumbnails {
     width: 100%;
     margin: 2em auto;
     max-width: 500px;

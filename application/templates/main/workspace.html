@@ -9,7 +9,7 @@
   <p>Uploaded images</p>
 
   {% if files %}
-    <ul>
+    <ul class="filenames">
       {% for file in files %}
 
         <li>{{ file }}</li>
@@ -36,13 +36,33 @@
 
     <div class="direction">
 
-      <label for="horizontal">Horizontal
-        <input type="radio" name="orientation" id="horizontal" value="horizontal" checked>
-      </label>
+      <ul>
 
-      <label for="vertical">Vertical
-        <input type="radio" name="orientation" id="vertical" value="vertical">
-      </label>
+        <li>
+          <label for="horizontal">
+            <input type="radio" name="orientation" id="horizontal" value="horizontal" checked>
+          </label>Horizontal
+        </li>
+
+        <li>
+          <label for="vertical">
+            <input type="radio" name="orientation" id="vertical" value="vertical">
+          </label>Vertical
+        </li>
+
+        <li>
+          <label for="background">
+            <input type="color" name="background" id="background" value="transparent">
+          </label>Background Color
+        </li>
+
+        <li>
+          <label for="border">
+            <input type="number" name="border" id="border" value="0" min="0" max="100">
+          </label>Border Size
+        </li>
+
+      </ul>
 
     </div>
 
