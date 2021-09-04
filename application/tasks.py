@@ -20,8 +20,8 @@ def save_images_to(path):
     return path_to_file
 
 
-@celery.task
-def resize_image(img, size):
+@celery.task(bind=True)
+def resize_image(self, img, size):
     '''Resize images'''
 
     new_img = rename_image('resized', img)
@@ -32,7 +32,7 @@ def resize_image(img, size):
     return resized_pic.save(str(Path(location / new_img)), format='PNG')
 
 
-@celery.task
+@celery.task()
 def create_thumbnail(img):
     '''Create thumbnail images'''
 
@@ -44,7 +44,7 @@ def create_thumbnail(img):
     return pic.save(Path(location / new_img), format='PNG')
 
 
-@celery.task
+@celery.task()
 def merge_images(img_files, orientation='horizontal'):
     '''Merge images together'''
 
