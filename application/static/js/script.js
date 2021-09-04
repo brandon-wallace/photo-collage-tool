@@ -22,4 +22,35 @@ const displayLoader = () => {
     document.querySelector('.spinner').style.display = 'inline-block';
 };
 
-uploadForm.addEventListener('submit', displayLoader);
+if (uploadForm) {
+    uploadForm.addEventListener('submit', displayLoader);
+}
+
+// AJAX Check task status.
+
+const taskCheck = () => {
+    fetch(`/queue`)
+    .then(response => {
+        // console.log(response.ok);
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        let html = '<h2>Task Status: </h2>';
+        data.forEach(elem => {
+            html += `
+                <ul>
+                  <li>${elem}</li>
+                </ul>
+            `;
+        });
+        document.getElementById('status').innerHTML = html;
+    })
+    .catch(error => console.error())
+}
+
+const generateBtn = document.querySelector('.generate');
+
+if (generateBtn) {
+    generateBtn.addEventListener('mouseover', taskCheck);
+}
