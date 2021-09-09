@@ -26,6 +26,7 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['UPLOADED_IMAGES_DEST'] = environ.get('UPLOADED_IMAGES_DEST')
+    app.config['CELERY_TASK_TRACK_STARTED'] = True
     images = UploadSet('images', IMAGES)
     configure_uploads(app, images)
     celery.conf.update(app.config)
