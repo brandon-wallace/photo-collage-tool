@@ -53,15 +53,15 @@ def uploads():
             img.filename = f'{filename}.{img.filename.split(".")[1]}'
             images.save(img)
             all_files.append(img.filename)
-            # task = create_thumbnail.delay(img.filename)
-            task = create_thumbnail.apply_async(args=[img.filename],
-                                                countdown=10)
-            all_tasks.append(task.task_id)
-            print(task.task_id)
-            print(task.status)
-            print(task.state)
+            task = create_thumbnail(img.filename)
+            # task = create_thumbnail.apply_async(args=[img.filename],
+            #                                     countdown=0)
+            # all_tasks.append(task.task_id)
+            # print(task.task_id)
+            # print(task.status)
+            # print(task.state)
             session['uploads'] = all_files
-        session['tasks_ids'] = all_tasks
+        # session['tasks_ids'] = all_tasks
         # print(session['tasks'])
         flash('Photos uploaded successfully', 'success')
         return redirect(url_for('main.workspace'))
@@ -116,6 +116,7 @@ def create_collage(images, size=500):
         open_files = [Image.open(Path(location / img)) for img in images]
         convert_to_png = [img.convert('RGBA') for img in open_files]
         resized_pic = [img.resize((500, 500)) for img in convert_to_png]
+        background = (0, 0, 0, 0)
         expand_border = [ImageOps.expand(img, border=int(border),
                          fill=background) for img in resized_pic]
         img_array = [numpy.asarray(img) for img in expand_border]
