@@ -50,7 +50,7 @@ def uploads():
             return redirect(url_for('main.index'))
         for img in file_obj:
             filename = ''.join(random.choice(chars) for _ in range(16))
-            img.filename = f'{filename}.{img.filename.split(".")[1]}'
+            img.filename = f'{filename}.{img.filename[-3:]}'
             images.save(img)
             all_files.append(img.filename)
             task = create_thumbnail(img.filename)
@@ -116,7 +116,8 @@ def create_collage(images, size=500):
         open_files = [Image.open(Path(location / img)) for img in images]
         convert_to_png = [img.convert('RGBA') for img in open_files]
         resized_pic = [img.resize((500, 500)) for img in convert_to_png]
-        background = (0, 0, 0, 0)
+        if background == '#000000':
+            background = (0, 0, 0, 0)
         expand_border = [ImageOps.expand(img, border=int(border),
                          fill=background) for img in resized_pic]
         img_array = [numpy.asarray(img) for img in expand_border]
