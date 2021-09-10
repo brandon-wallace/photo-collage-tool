@@ -1,12 +1,13 @@
 import ast
+import random
+import string
 from os import environ
 from pathlib import Path
 from datetime import datetime
 from PIL import Image, ImageOps
 import numpy
 from flask import (Blueprint, render_template, request, abort, redirect,
-                   jsonify,
-                   json, url_for, flash, session, send_from_directory)
+                   jsonify, json, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from celery.result import AsyncResult
 from ..tasks import (
@@ -37,6 +38,7 @@ def uploads():
 
     all_files = []
     all_tasks = []
+    chars = ''.join(string.ascii_letters)
     form = UploadForm()
     if request.method == 'POST':
         file_obj = request.files.getlist('images')
@@ -47,31 +49,43 @@ def uploads():
             flash('Maximum number of images exceeded.', 'failure')
             return redirect(url_for('main.index'))
         for img in file_obj:
+            filename = ''.join(random.choice(chars) for _ in range(16))
+            img.filename = f'{filename}.{img.filename.split(".")[1]}'
             images.save(img)
             all_files.append(img.filename)
             # task = create_thumbnail.delay(img.filename)
-            task = create_thumbnail.apply_async(args=[img.filename], countdown=0)
+            task = create_thumbnail.apply_async(args=[img.filename],
+                                                countdown=10)
             all_tasks.append(task.task_id)
             print(task.task_id)
             print(task.status)
             print(task.state)
             session['uploads'] = all_files
-        session['tasks'] = all_tasks
+        session['tasks_ids'] = all_tasks
         # print(session['tasks'])
         flash('Photos uploaded successfully', 'success')
         return redirect(url_for('main.workspace'))
     return render_template('main/index.html', form=form, files=all_files)
 
 
-@main.route('/queue')
-def get_status():
+@main.route('/queue/<task_id>')
+def get_status(task_id):
 
-    results = []
-    for i in session['tasks']:
-        print(AsyncResult(i).status)
-        results.append(AsyncResult(i).status)
-    results = json.dumps(results)
+    # results = []
+    # for i in session['tasks_ids']:
+    #     task = create_thumbnail.AsyncResult(i).status
+    #     results.append(task)
+    # results = json.dumps(results)
+    # results = datetime.utcnow().strftime("%S")
+    results = create_thumbnail.AsyncResult(task_id).status
     return results
+
+
+@main.get('/status/<task_id>')
+def task_status(task_id):
+
+    task = create_thumbnail.AsyncResult(task_id)
+    return jsonify(task)
 
 
 @main.get('/workspace')
@@ -90,12 +104,14 @@ def create_collage(images, size=500):
     all_images = []
     images = ast.literal_eval(images)
     location = save_images_to(default_path)
+
     if form.validate_on_submit():
         border = request.form.get('border')
         background = request.form.get('background')
         orientation = request.form.get('orientation')
         # for img in images:
-        # resized_pic = resize_image.delay(img, 400)
+        # resized_pic = resize_image.apply_async(args=[img, border,
+        #                                          background, 500], countdown=30)
         # ---------------------------------------------------
         open_files = [Image.open(Path(location / img)) for img in images]
         convert_to_png = [img.convert('RGBA') for img in open_files]
@@ -104,6 +120,7 @@ def create_collage(images, size=500):
                          fill=background) for img in resized_pic]
         img_array = [numpy.asarray(img) for img in expand_border]
         all_images = [img for img in img_array]
+        # ---------------------------------------------------
         # print(resized_pic.task_id)
         # pic_arr = numpy.array(resized_pic)
         # all_images.append(resized_pic)
