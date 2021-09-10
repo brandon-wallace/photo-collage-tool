@@ -1,8 +1,9 @@
 # DevProjects - Photo Collage Tool
 
-## Upload and combine images asynchronously using a task queue to create a photo collage horizontally or vertically. 
+## Upload and combine images asynchronously using a task queue to create a photo collage horizontally or vertically with the option to set a border and background color. 
 
 This is an open source project from [DevProjects](http://www.codementor.io/projects). Feedback and questions are welcome!
+
 Find the project requirements here: [Online photo collage tool](https://www.codementor.io/projects/web/online-photo-collage-tool-atx32mwend)
 
 ## Technologies used
