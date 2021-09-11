@@ -8,22 +8,12 @@
 
   <p class="large">Uploaded images</p>
 
-  {% if files %}
-    <ul class="filenames">
-      {% for file in files %}
-
-        <li>{{ file }}</li>
-
-      {% endfor %}
-    </ul>
-  {% endif %}
-
   <div class="thumbnails">
 
     {% if files %}
       {% for file in files %}
 
-        <img class="thumbnail__images" src="static/images/uploads/thumbnail_{{ file | default('broken_image.png') }}" alt="PNG Image">
+        <img class="thumbnail__images" src="static/images/uploads/{{ file }}" alt="PNG Image">
 
       {% endfor %}
     {% endif %}
@@ -54,7 +44,7 @@
 
         <li>
           <label for="background">
-            <input type="color" name="background" id="background" value="transparent">
+              <input type="color" name="background" id="background">
           </label>Background Color
         </li>
 
