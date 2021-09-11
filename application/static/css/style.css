@@ -113,6 +113,11 @@ form {
     max-width: 500px;
 }
 
+.uploads > p {
+    color: #0050CC;
+    margin-bottom: 1em;
+}
+
 img {
     width: 100%;
     height: auto;
@@ -290,7 +295,20 @@ footer p a:hover {
 .error-image {
     display: block;
     margin: 0 auto;
-    max-width: 300px;
+    max-width: 280px;
+}
+
+.progress-bar {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.progress-bar > label {
+    display: block;
+}
+
+.progress-bar progress {
+    width: 90%;
 }
 
 .center {
