@@ -1,63 +1,55 @@
 from os import environ
 from pathlib import Path
+from datetime import datetime
 import numpy
-from PIL import Image
+from PIL import Image, ImageOps
 from application import celery
 
 default_path = environ.get('UPLOADED_IMAGES_DEST')
 
 
-def rename_image(label, img):
+def rename_image(label, image):
     '''Rename images'''
 
-    return f'{label}_{img}'
+    return f'{label}_{image}'
 
 
-def save_images_to(path):
+def save_image_to(path):
     '''Set directory to save images to'''
 
-    path_to_file = Path(path)
-    return path_to_file
+    return Path(path)
 
 
-@celery.task(bind=True)
-def resize_image(self, img, size):
+def resize_image(image, size):
     '''Resize images'''
 
-    new_img = rename_image('resized', img)
-    location = save_images_to(default_path)
-    pic = Image.open(Path(location / img))
-    pic = pic.convert('RGBA')
-    resized_pic = pic.resize((size, size))
-    return resized_pic.save(str(Path(location / new_img)), format='PNG')
+    return image.resize((size, size))
+
+
+def merge_images(image_file, border, background=(0, 0, 0, 0)):
+
+    image_path = save_image_to(default_path)
+
+    image = Image.open(Path(image_path / image_file))
+    image_png = image.convert('RGBA')
+    image_resized = resize_image(image_png, 500)
+    image_expanded_border = ImageOps.expand(image_resized, border=int(border),
+                                            fill=background)
+    image_array = numpy.asarray(image_expanded_border)
+    return image_array
 
 
 @celery.task()
-def create_thumbnail(img):
-    '''Create thumbnail images'''
+def generate_collage(images, orientation):
 
-    new_img = rename_image('thumbnail', img)
-    location = save_images_to(default_path)
-    pic = Image.open(Path(location / img))
-    pic = pic.convert('RGBA')
-    pic.thumbnail((100, 100))
-    return pic.save(Path(location / new_img), format='PNG')
+    save_path = save_image_to(default_path)
 
-
-@celery.task()
-def merge_images(img_files, orientation='horizontal'):
-    '''Merge images together'''
-
-    images = [Image.open(img) for img in img_files]
-    convert_to_png = [img.convert('RGBA') for img in images]
-    resized_png = [img.resize((400, 400)) for img in convert_to_png]
-    img_array = [numpy.asarray(img) for img in resized_png]
-    merged_images = numpy.hstack((img_array))
+    image_array = [img for img in images]
+    if orientation == 'vertical':
+        merged_images = numpy.vstack((image_array))
+    else:
+        merged_images = numpy.hstack((image_array))
     collage = Image.fromarray(merged_images)
-    # images = [Image.open(img) for img in img_files]
-    # img_arr = [numpy.asarray(img) for img in images]
-    # img_fromarr = [numpy.fromarray(img) for img in img_arr]
-    # if orientation == 'vertical':
-    #     return numpy.vstack(tuple(img_fromarr))
-    # return numpy.hstack(tuple(img_fromarr))
-    return collage
+    filename = f'collage_{datetime.utcnow().strftime("%Y%m%d%H%M%S")}.png'
+    collage.save(Path(save_path / filename))
+    return filename
