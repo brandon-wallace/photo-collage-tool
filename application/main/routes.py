@@ -2,18 +2,11 @@ import ast
 import random
 import string
 from os import environ
-from pathlib import Path
-from datetime import datetime
-from PIL import Image, ImageOps
-import numpy
 from flask import (Blueprint, render_template, request, abort, redirect,
-                   jsonify, json, url_for, flash, session, send_from_directory)
+                   jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
-from celery.result import AsyncResult
-from ..tasks import (
-                     # resize_image,
-                     save_images_to,
-                     create_thumbnail)
+# from celery.result import AsyncResult
+from ..tasks import merge_images, generate_collage
 from application.forms import UploadForm
 
 main = Blueprint('main', __name__,
@@ -37,7 +30,6 @@ def uploads():
     '''Display uploaded images'''
 
     all_files = []
-    all_tasks = []
     chars = ''.join(string.ascii_letters)
     form = UploadForm()
     if request.method == 'POST':
@@ -53,16 +45,7 @@ def uploads():
             img.filename = f'{filename}.{img.filename[-3:]}'
             images.save(img)
             all_files.append(img.filename)
-            task = create_thumbnail(img.filename)
-            # task = create_thumbnail.apply_async(args=[img.filename],
-            #                                     countdown=0)
-            # all_tasks.append(task.task_id)
-            # print(task.task_id)
-            # print(task.status)
-            # print(task.state)
             session['uploads'] = all_files
-        # session['tasks_ids'] = all_tasks
-        # print(session['tasks'])
         flash('Photos uploaded successfully', 'success')
         return redirect(url_for('main.workspace'))
     return render_template('main/index.html', form=form, files=all_files)
@@ -71,21 +54,16 @@ def uploads():
 @main.route('/queue/<task_id>')
 def get_status(task_id):
 
-    # results = []
-    # for i in session['tasks_ids']:
-    #     task = create_thumbnail.AsyncResult(i).status
-    #     results.append(task)
-    # results = json.dumps(results)
-    # results = datetime.utcnow().strftime("%S")
-    results = create_thumbnail.AsyncResult(task_id).status
+    results = ''
     return results
 
 
 @main.get('/status/<task_id>')
 def task_status(task_id):
 
-    task = create_thumbnail.AsyncResult(task_id)
-    return jsonify(task)
+    task = merge_images.AsyncResult(task_id)
+    response = task.state
+    return jsonify(response)
 
 
 @main.get('/workspace')
@@ -101,56 +79,19 @@ def create_collage(images, size=500):
     '''Create collage of the images'''
 
     form = UploadForm()
-    all_images = []
     images = ast.literal_eval(images)
-    location = save_images_to(default_path)
 
     if form.validate_on_submit():
         border = request.form.get('border')
         background = request.form.get('background')
-        orientation = request.form.get('orientation')
-        # for img in images:
-        # resized_pic = resize_image.apply_async(args=[img, border,
-        #                                          background, 500], countdown=30)
-        # ---------------------------------------------------
-        open_files = [Image.open(Path(location / img)) for img in images]
-        convert_to_png = [img.convert('RGBA') for img in open_files]
-        resized_pic = [img.resize((500, 500)) for img in convert_to_png]
         if background == '#000000':
             background = (0, 0, 0, 0)
-        expand_border = [ImageOps.expand(img, border=int(border),
-                         fill=background) for img in resized_pic]
-        img_array = [numpy.asarray(img) for img in expand_border]
-        all_images = [img for img in img_array]
-        # ---------------------------------------------------
-        # print(resized_pic.task_id)
-        # pic_arr = numpy.array(resized_pic)
-        # all_images.append(resized_pic)
-        # if orientation == 'vertical':
-        # merged_images = merge_images.delay(all_images, 'vertical')
-        # pass
-        # else:
-        #     merged_images = merge_images.delay(all_images)
-        # pass
-        # ---------------------------------------------------
-        image_array = [numpy.asarray(img) for img in all_images]
-        images_list = []
-        for img in image_array:
-            images_list.append(img)
-        if orientation == 'vertical':
-            merged_images = numpy.vstack((images_list))
-        else:
-            merged_images = numpy.hstack((images_list))
-        collage = Image.fromarray(merged_images)
-        filename = f'collage_{datetime.utcnow().strftime("%Y%m%d%H%M%S")}.png'
-        collage.save(Path(location / filename))
-        # ---------------------------------------------------
-        # collage = Image.fromarray(merged_images, 'RGB')
-        # collage = merge_images(all_images)
-        # collage.save(Path(location / 'photo-collage.png'))
-        # collage.save(Path(location / 'photo-collage.png'))
-        # filename = Path(location / 'photo-collage.png')
-        session['collage'] = filename
+        orientation = request.form.get('orientation')
+        merged_images = [merge_images(img, border, background)
+                         for img in images]
+        collage = generate_collage(merged_images, orientation)
+        session['collage'] = collage
+
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
 
