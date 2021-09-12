@@ -12,7 +12,8 @@
 
     {{ form.csrf_token }}
     {{ form.images(class='browse', multiple='true') }}
-    {{ form.submit(class='btn btn--solid') }}
+    <p>Hold CTRL to select mutiple files.</p>
+    {{ form.submit(class='btn btn--solid upload-btn') }}
 
   </form>
 
