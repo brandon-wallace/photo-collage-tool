@@ -12,6 +12,7 @@ numpy = "*"
 flask-reuploaded = "*"
 celery = "*"
 flask = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
