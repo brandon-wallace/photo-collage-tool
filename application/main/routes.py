@@ -1,10 +1,11 @@
 import ast
 import random
 import string
+import imghdr
 from os import environ
 from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
-from flask_uploads import IMAGES, UploadSet 
+from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
 # from celery.result import AsyncResult
 from ..tasks import merge_images, generate_collage
@@ -16,6 +17,15 @@ main = Blueprint('main', __name__,
 
 default_path = environ.get('UPLOADED_IMAGES_DEST')
 images = UploadSet('images', IMAGES)
+
+
+def is_image_valid(image):
+    '''Check if image is valid'''
+
+    if imghdr.what(image) == 'png' or imghdr.what(image) == 'jpeg':
+        return True
+    else:
+        return False
 
 
 @main.get('/')
@@ -42,6 +52,9 @@ def uploads():
             flash('Maximum number of images exceeded.', 'failure')
             return redirect(url_for('main.index'))
         for img in file_obj:
+            if is_image_valid(img) is False:
+                flash('Not a valid image file.', 'failure')
+                return redirect(url_for('main.index'))
             filename = ''.join(random.choice(chars) for _ in range(16))
             img.filename = f'{filename}.{img.filename[-3:]}'
             try:
