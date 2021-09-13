@@ -32,7 +32,7 @@ const fileInput = document.getElementById('images');
 const uploadBtn = document.querySelector('.upload-btn');
 
 uploadBtn.disable = true;
-uploadBtn.style.backgroundColor = '#AAAAAA';
+uploadBtn.classList.add('disabled');
 
 const checkFileSize = () => {
     const allFiles = [...fileInput.files];
@@ -45,7 +45,7 @@ const checkFileSize = () => {
         } 
         if (totalSize === 0) return;
         uploadBtn.disabled = false;
-        uploadBtn.style.backgroundColor = '#0050EE';
+        uploadBtn.classList.remove('disabled'); 
     }
 }
 

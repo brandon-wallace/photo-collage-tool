@@ -319,6 +319,10 @@ footer p a:hover {
     max-width: 280px;
 }
 
+.disabled {
+    background-color: #AAAAAA;
+}
+
 .progress-bar {
     width: 300px;
     margin: 0 auto;
@@ -492,3 +496,25 @@ footer p a:hover {
         max-width: 800px;
     }
 }
+
+.custom-shape-divider-bottom-1631545467 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1631545467 svg {
+    position: relative;
+    display: block;
+    width: calc(224% + 1.3px);
+    height: 125px;
+}
+
+.custom-shape-divider-bottom-1631545467 .shape-fill {
+    fill: #0050EE;
+}
+Dow
