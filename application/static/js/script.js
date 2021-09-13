@@ -43,10 +43,10 @@ const checkFileSize = () => {
             alert('File exceeds 20 MB limit.')
             return;
         } 
+        if (totalSize === 0) return;
         uploadBtn.disabled = false;
         uploadBtn.style.backgroundColor = '#0050EE';
     }
-    if (totalSize === 0) return;
 }
 
 if (fileInput) {
