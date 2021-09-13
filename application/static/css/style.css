@@ -169,8 +169,12 @@ textarea {
 
 .btn:hover {
     color: #0050CC;
-    border: 2px solid #0050CC;
+    outline: 2px solid #0050CC;
     background-color: #FFFFFF;
+}
+
+.upload-btn {
+    outline: 2px solid #0050CC;
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
