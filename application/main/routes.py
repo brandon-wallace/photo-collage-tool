@@ -4,7 +4,8 @@ import string
 from os import environ
 from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
-from flask_uploads import IMAGES, UploadSet
+from flask_uploads import IMAGES, UploadSet 
+from flask_uploads.exceptions import UploadNotAllowed
 # from celery.result import AsyncResult
 from ..tasks import merge_images, generate_collage
 from application.forms import UploadForm
@@ -37,13 +38,17 @@ def uploads():
         if len(file_obj) < 2:
             flash('At least 2 images are required.', 'failure')
             return redirect(url_for('main.index'))
-        if len(file_obj) > 5:
+        if len(file_obj) > 6:
             flash('Maximum number of images exceeded.', 'failure')
             return redirect(url_for('main.index'))
         for img in file_obj:
             filename = ''.join(random.choice(chars) for _ in range(16))
             img.filename = f'{filename}.{img.filename[-3:]}'
-            images.save(img)
+            try:
+                images.save(img)
+            except UploadNotAllowed:
+                flash('File type not allowed.', 'failure')
+                return redirect(url_for('main.index'))
             all_files.append(img.filename)
             session['uploads'] = all_files
         flash('Photos uploaded successfully', 'success')
