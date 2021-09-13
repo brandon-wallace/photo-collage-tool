@@ -26,31 +26,29 @@ if (uploadForm) {
     uploadForm.addEventListener('submit', displayLoader);
 }
 
-// AJAX Check task status.
+// Check upload file size.
 
-const taskCheck = () => {
-    fetch(`/queue`)
-    .then(response => {
-        // console.log(response.ok);
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        let html = '<h2>Task Status: </h2>';
-        data.forEach(elem => {
-            html += `
-                <ul>
-                  <li>${elem}</li>
-                </ul>
-            `;
-        });
-        document.getElementById('status').innerHTML = html;
-    })
-    .catch(error => console.error())
+const fileInput = document.getElementById('images');
+const uploadBtn = document.querySelector('.upload-btn');
+
+uploadBtn.disable = true;
+uploadBtn.style.backgroundColor = '#AAAAAA';
+
+const checkFileSize = () => {
+    const allFiles = [...fileInput.files];
+    let totalSize = 0;
+    for (let i = 0; i < allFiles.length; i++) {
+        totalSize += allFiles[i].size;
+        if (allFiles[i].size > 20971520) {
+            alert('File exceeds 20 MB limit.')
+            return;
+        } 
+        uploadBtn.disabled = false;
+        uploadBtn.style.backgroundColor = '#0050EE';
+    }
+    if (totalSize === 0) return;
 }
 
-const generateBtn = document.querySelector('.generate');
-
-if (generateBtn) {
-    generateBtn.addEventListener('mouseover', taskCheck);
+if (fileInput) {
+    fileInput.addEventListener('change', checkFileSize);
 }
