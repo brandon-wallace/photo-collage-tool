@@ -7,7 +7,7 @@ from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
-# from celery.result import AsyncResult
+from celery.result import AsyncResult
 from ..tasks import merge_images, generate_collage
 from application.forms import UploadForm
 
@@ -36,6 +36,17 @@ def index():
     return render_template('main/index.html', form=form)
 
 
+def quantity_exceeded(files):
+    '''Set a limit on the number of files to upload'''
+
+    if len(files) < 2:
+        flash('At least 2 images are required.', 'failure')
+        return True
+    if len(files) > 6:
+        flash('Maximum number of images exceeded.', 'failure')
+        return True
+
+
 @main.post('/')
 def uploads():
     '''Display uploaded images'''
@@ -45,11 +56,7 @@ def uploads():
     form = UploadForm()
     if request.method == 'POST':
         file_obj = request.files.getlist('images')
-        if len(file_obj) < 2:
-            flash('At least 2 images are required.', 'failure')
-            return redirect(url_for('main.index'))
-        if len(file_obj) > 6:
-            flash('Maximum number of images exceeded.', 'failure')
+        if quantity_exceeded(file_obj):
             return redirect(url_for('main.index'))
         for img in file_obj:
             if is_image_valid(img) is False:
@@ -72,8 +79,8 @@ def uploads():
 @main.route('/queue/<task_id>')
 def get_status(task_id):
 
-    results = ''
-    return results
+    task = generate_collage.AsyncResult(task_id)
+    return task
 
 
 @main.get('/status/<task_id>')
