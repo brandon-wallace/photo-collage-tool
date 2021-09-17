@@ -6,13 +6,14 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pillow = "*"
-flask-wtf = "*"
+Pillow = "*"
+Flask-WTF = "*"
 numpy = "*"
-flask-reuploaded = "*"
+Flask-Reuploaded = "*"
 celery = "*"
-flask = "*"
+Flask = "*"
 python-dotenv = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.9"
