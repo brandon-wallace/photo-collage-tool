@@ -28,9 +28,14 @@ total = sum([size + size for size in total_size])
 
 
 def convert_bytes(size):
-    '''Convert bytes to megabytes'''
+    '''Convert bytes to human readable format'''
 
-    return f'Total Deleted: {(round(size / (1024 * 1024), 3))} MB'
+    if size >= 1024:
+        return f'Total Deleted: {(round(size / (1024 * 1024), 2))} KB'
+    if size >= 1048576:
+        return f'Total Deleted: {(round(size / (1024 * 1024), 3))} MB'
+    if size >= 1048576000:
+        return f'Total Deleted: {(round(size / (1024 * 1024), 4))} GB'
 
 
 logger.info(convert_bytes(total))
