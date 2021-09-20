@@ -30,35 +30,27 @@
 
       <ul>
 
+        {% for subfield in form.orientation %}
         <li>
-          <label for="horizontal">
-            <input type="radio" name="orientation" id="horizontal" value="horizontal" checked>
-          </label>Horizontal Collage
+            <span>{{ subfield }}</span>
+            <span>{{ subfield.label }}</span>
         </li>
+        {% endfor %}
 
         <li>
-          <label for="vertical">
-            <input type="radio" name="orientation" id="vertical" value="vertical">
-          </label>Vertical Collage
+          {{ form.background() }}
+          {{ form.background.label }}
         </li>
-
         <li>
-          <label for="background">
-              <input type="color" name="background" id="background">
-          </label>Background Color
-        </li>
-
-        <li>
-          <label for="border">
-            <input type="number" name="border" id="border" value="0" min="0" max="100">
-          </label>Border Size
+          {{ form.border() }}
+          {{ form.border.label }}
         </li>
 
       </ul>
 
-    </div>
+      {{ form.submit(class_='btn generate') }}
 
-    <button class="btn generate" type="submit">GENERATE</button>
+    </div>
 
   </form>
 
