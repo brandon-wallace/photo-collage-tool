@@ -9,7 +9,7 @@ from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
 from celery.result import AsyncResult
 from ..tasks import merge_images, generate_collage
-from application.forms import UploadForm
+from application.forms import UploadForm, ImageSettingsForm
 
 main = Blueprint('main', __name__,
                  template_folder='templates',
@@ -94,7 +94,7 @@ def task_status(task_id):
 @main.get('/workspace')
 def workspace(uploads=None):
 
-    form = UploadForm()
+    form = ImageSettingsForm()
     return render_template('main/workspace.html',
                            form=form, files=session['uploads'])
 
@@ -103,20 +103,21 @@ def workspace(uploads=None):
 def create_collage(images, size=500):
     '''Create collage of the images'''
 
-    form = UploadForm()
+    form = ImageSettingsForm()
     images = ast.literal_eval(images)
 
+    form.background.default = (0, 0, 0, 0)
+    form.process()
     if form.validate_on_submit():
         border = request.form.get('border')
         background = request.form.get('background')
-        if background == '#000000':
-            background = (0, 0, 0, 0)
         orientation = request.form.get('orientation')
         merged_images = [merge_images(img, border, background)
                          for img in images]
-        collage = generate_collage(merged_images, orientation)
+        # collage = generate_collage(merged_images, orientation)
+        collage = generate_collage.apply_async(args=[merged_images,
+                                               orientation], serializer='json')
         session['collage'] = collage
-
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
 
