@@ -19,13 +19,15 @@ Built with:
 
 ## Screenshot 
 
-![screenshot](screenshot1.png)
+![screenshot 1](screenshot1.png)
 
-![screenshot](screenshot2.png)
+![screenshot 2](screenshot2.png)
 
-![screenshot](screenshot3.png)
+![screenshot 3](screenshot3.png)
 
-![example image](collage_20211008-032021.png)
+![example image 1](collage_20211008-032021.png)
+
+![example image 2](collage_20211008-040629.png)
 
 ## Installation
 
