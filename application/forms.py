@@ -12,9 +12,9 @@ class UploadForm(FlaskForm):
 
 
 class ImageSettingsForm(FlaskForm):
-    orientation = RadioField('Orientation', default='vertical',
-                             choices=[('vertical', 'Vertical Collage'),
-                                      ('horizontal', 'Horizontal Collage')])
+    orientation = RadioField('Orientation', default='horizontal',
+                             choices=[('horizontal', 'Horizontal Collage'),
+                                      ('vertical', 'Vertical Collage')])
     background = ColorField('Background Color', validators=[InputRequired()])
     border = IntegerField(validators=[NumberRange(min=0, max=100)])
     border = IntegerField('Border', widget=html5.NumberInput(min=0, max=100,
