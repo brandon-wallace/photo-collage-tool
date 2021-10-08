@@ -120,8 +120,8 @@ section p {
 
 form {
     width: 100%;
-    margin: 0 auto;
     max-width: 500px;
+    margin: 0 auto 8em auto;
 }
 
 .browse {
@@ -283,15 +283,31 @@ li {
 }
 
 footer {
+    height: 125px;
+    color: #FFFFFF;
     margin-top: auto;
+    position: relative;
+    background-color: #0050CC;
 }
 
 footer p {
     text-align: center;
 }
 
+footer p a {
+    color: #FFFFFF;
+}
+
 footer p a:hover {
-    color: blue;
+    color: #000000;
+}
+
+
+.wave {
+    left: 0;
+    right: 0;
+    bottom: 110px;
+    position: absolute;
 }
 
 .collage {
