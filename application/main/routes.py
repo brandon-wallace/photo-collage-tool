@@ -38,15 +38,7 @@ def rename_image_file(filename):
     return filename_with_ext
 
 
-@main.get('/')
-def index():
-    '''Index route'''
-
-    form = UploadForm()
-    return render_template('main/index.html', form=form)
-
-
-def quantity_exceeded(files):
+def check_quantity(files):
     '''Set a limit on the number of files to upload'''
 
     if len(files) < 2:
@@ -57,6 +49,14 @@ def quantity_exceeded(files):
         return True
 
 
+@main.get('/')
+def index():
+    '''Index route'''
+
+    form = UploadForm()
+    return render_template('main/index.html', form=form)
+
+
 @main.post('/')
 def uploads():
     '''Display uploaded images'''
@@ -65,7 +65,7 @@ def uploads():
     form = UploadForm()
     if request.method == 'POST':
         file_obj = request.files.getlist('images')
-        if quantity_exceeded(file_obj):
+        if check_quantity(file_obj):
             return redirect(url_for('main.index'))
         for img in file_obj:
             if is_image_valid(img) is False:
