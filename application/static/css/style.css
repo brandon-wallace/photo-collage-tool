@@ -282,37 +282,13 @@ li {
     margin-right: .5em;
 }
 
-.wave {
-    left: 0;
-    right: 0;
-    top: -80px;
-    position: absolute;
-}
-
 footer {
     height: 125px;
     color: #FFFFFF;
     margin-top: auto;
     position: relative;
-    background-color: #0050CC;
-}
-
-.footer__wave {
-    height: 100px;
-}
-
-.footer__content {
-    height: 150px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #0050CC;
-}
-
-.footer__content p {
-    margin: .5rem 0;
     text-align: center;
+    background-color: #0050CC;
 }
 
 footer p a {
