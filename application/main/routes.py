@@ -9,7 +9,7 @@ from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
-from celery.result import AsyncResult
+# from celery.result import AsyncResult
 from ..tasks import merge_images, generate_collage
 from application.forms import UploadForm, ImageSettingsForm
 
@@ -28,6 +28,14 @@ def is_image_valid(image):
         return True
     else:
         return False
+
+
+def rename_image_file(filename):
+
+    chars = ''.join(string.ascii_letters)
+    filename = ''.join(random.choice(chars) for _ in range(16))
+    filename_with_ext = f'{filename}.{filename[-3:]}'
+    return filename_with_ext
 
 
 @main.get('/')
@@ -54,7 +62,6 @@ def uploads():
     '''Display uploaded images'''
 
     all_files = []
-    chars = ''.join(string.ascii_letters)
     form = UploadForm()
     if request.method == 'POST':
         file_obj = request.files.getlist('images')
@@ -64,8 +71,7 @@ def uploads():
             if is_image_valid(img) is False:
                 flash('Not a valid image file.', 'failure')
                 return redirect(url_for('main.index'))
-            filename = ''.join(random.choice(chars) for _ in range(16))
-            img.filename = f'{filename}.{img.filename[-3:]}'
+            img.filename = rename_image_file(img.filename)
             try:
                 images.save(img)
             except UploadNotAllowed:
@@ -123,7 +129,8 @@ def create_collage(images, size=500):
                          for img in images]
         # collage = generate_collage(merged_images, orientation)
         # collage = generate_collage.apply_async(args=[merged_images,
-        #                                        orientation], serializer='json')
+        #                                        orientation],
+        #                                        serializer='json')
         collage = generate_collage(merged_images, orientation)
         session['collage'] = collage
         return redirect(url_for('main.display_collage'))
