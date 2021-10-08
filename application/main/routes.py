@@ -31,6 +31,7 @@ def is_image_valid(image):
 
 
 def rename_image_file(filename):
+    '''Rename files using a random string'''
 
     extention = filename[-3:]
     chars = ''.join(string.ascii_letters)
@@ -50,6 +51,7 @@ def check_quantity(files):
 
 
 def save_image_file(img_file):
+    '''Try to save the image file'''
 
     try:
         images.save(img_file)
