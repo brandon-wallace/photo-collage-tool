@@ -1,3 +1,5 @@
+# application/main/routes.py
+
 import ast
 import random
 import string
@@ -91,6 +93,13 @@ def task_status(task_id):
     return jsonify(response)
 
 
+def set_default_background(bg_color):
+    '''Set default background color to transparent'''
+
+    if bg_color == '#000001':
+        return (0, 0, 0, 0)
+
+
 @main.get('/workspace')
 def workspace(uploads=None):
 
@@ -105,18 +114,22 @@ def create_collage(images, size=500):
 
     form = ImageSettingsForm()
     images = ast.literal_eval(images)
+    background = request.form.get('background')
+    print(dir(request.form))
+    background = (0, 0, 0, 0)
 
-    form.background.default = (0, 0, 0, 0)
-    form.process()
     if form.validate_on_submit():
         border = request.form.get('border')
-        background = request.form.get('background')
+        background = set_default_background(request.form.get('background'))
         orientation = request.form.get('orientation')
         merged_images = [merge_images(img, border, background)
                          for img in images]
         # collage = generate_collage(merged_images, orientation)
-        collage = generate_collage.apply_async(args=[merged_images,
-                                               orientation], serializer='json')
+        print(type(merged_images))
+        # collage = generate_collage.apply_async(args=[merged_images,
+        #                                        orientation], serializer='json')
+        collage = generate_collage(merged_images, orientation)
+        print(type(collage))
         session['collage'] = collage
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
