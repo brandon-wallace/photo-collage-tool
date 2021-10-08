@@ -49,6 +49,15 @@ def check_quantity(files):
         return True
 
 
+def save_image_file(img_file):
+
+    try:
+        images.save(img_file)
+    except UploadNotAllowed:
+        flash('File type not allowed.', 'failure')
+        return redirect(url_for('main.index'))
+
+
 @main.get('/')
 def index():
     '''Index route'''
@@ -72,11 +81,7 @@ def uploads():
                 flash('Not a valid image file.', 'failure')
                 return redirect(url_for('main.index'))
             img.filename = rename_image_file(img.filename)
-            try:
-                images.save(img)
-            except UploadNotAllowed:
-                flash('File type not allowed.', 'failure')
-                return redirect(url_for('main.index'))
+            save_image_file(img)
             all_files.append(img.filename)
             session['uploads'] = all_files
         flash('Photos uploaded successfully', 'success')
