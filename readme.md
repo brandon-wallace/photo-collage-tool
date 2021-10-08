@@ -25,6 +25,8 @@ Built with:
 
 ![screenshot](screenshot3.png)
 
+![example image](collage_20211008-032021.png)
+
 ## Installation
 
 Create a .env file.
