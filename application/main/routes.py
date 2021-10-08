@@ -32,10 +32,10 @@ def is_image_valid(image):
 
 def rename_image_file(filename):
 
+    extention = filename[-3:]
     chars = ''.join(string.ascii_letters)
     filename = ''.join(random.choice(chars) for _ in range(16))
-    filename_with_ext = f'{filename}.{filename[-3:]}'
-    return filename_with_ext
+    return f'{filename}.{extention}'
 
 
 def check_quantity(files):
