@@ -94,7 +94,7 @@ def task_status(task_id):
 
 
 def set_default_background(bg_color):
-    '''Set default background color to transparent'''
+    '''Set default background to transparent'''
 
     if bg_color == '#000001':
         return (0, 0, 0, 0)
@@ -114,9 +114,6 @@ def create_collage(images, size=500):
 
     form = ImageSettingsForm()
     images = ast.literal_eval(images)
-    background = request.form.get('background')
-    print(dir(request.form))
-    background = (0, 0, 0, 0)
 
     if form.validate_on_submit():
         border = request.form.get('border')
@@ -125,11 +122,9 @@ def create_collage(images, size=500):
         merged_images = [merge_images(img, border, background)
                          for img in images]
         # collage = generate_collage(merged_images, orientation)
-        print(type(merged_images))
         # collage = generate_collage.apply_async(args=[merged_images,
         #                                        orientation], serializer='json')
         collage = generate_collage(merged_images, orientation)
-        print(type(collage))
         session['collage'] = collage
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
