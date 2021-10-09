@@ -93,6 +93,7 @@ def uploads():
 
 @main.route('/queue/<task_id>')
 def get_status(task_id):
+    '''Get task ID route'''
 
     task = generate_collage.AsyncResult(task_id)
     return task
@@ -100,6 +101,7 @@ def get_status(task_id):
 
 @main.get('/status/<task_id>')
 def task_status(task_id):
+    '''Task ID route'''
 
     task = merge_images.AsyncResult(task_id)
     response = task.state
@@ -115,6 +117,7 @@ def set_default_background(bg_color):
 
 @main.get('/workspace')
 def workspace(uploads=None):
+    '''Workspace route'''
 
     form = ImageSettingsForm()
     return render_template('main/workspace.html',
