@@ -17,6 +17,11 @@ Built with:
 * Pillow 
 * Numpy
 
+Development:
+
+* Pytest
+* Tox
+
 ## Screenshot 
 
 ![screenshot 1](screenshot1.png)
@@ -47,6 +52,20 @@ CELERY_BROKER_URL='<your_rabbitmq_url>'
 UPLOADED_IMAGES_DEST='application/static/images/uploads'
 DOWNLOAD_URL='</full/path/to/images>'
 ```
+
+Install development dependancies.
+
+```
+$ pipenv install tox pytest --dev
+```
+
+Install dependancies.
+
+```
+$ pipenv install
+```
+
+Install RabbitMQ.
 
 ```
 $ sudo apt install rabbitmq-server
