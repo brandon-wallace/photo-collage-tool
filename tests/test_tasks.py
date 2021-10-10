@@ -1,3 +1,4 @@
+from pathlib import Path
 from application.tasks import rename_image, save_image_to
 
 
@@ -8,4 +9,4 @@ def test_rename_image():
 
 def test_save_image_to():
 
-    pass
+    assert save_image_to('/') == Path('/')
