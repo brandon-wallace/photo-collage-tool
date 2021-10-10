@@ -71,22 +71,19 @@ def uploads():
     '''Display uploaded images'''
 
     all_files = []
-    form = UploadForm()
-    if request.method == 'POST':
-        file_obj = request.files.getlist('images')
-        if check_quantity(file_obj):
+    file_obj = request.files.getlist('images')
+    if check_quantity(file_obj):
+        return redirect(url_for('main.index'))
+    for img in file_obj:
+        if is_image_valid(img) is False:
+            flash('Not a valid image file.', 'failure')
             return redirect(url_for('main.index'))
-        for img in file_obj:
-            if is_image_valid(img) is False:
-                flash('Not a valid image file.', 'failure')
-                return redirect(url_for('main.index'))
-            img.filename = rename_image_file(img.filename)
-            save_image_file(img)
-            all_files.append(img.filename)
-            session['uploads'] = all_files
-        flash('Photos uploaded successfully', 'success')
-        return redirect(url_for('main.workspace'))
-    return render_template('main/index.html', form=form, files=all_files)
+        img.filename = rename_image_file(img.filename)
+        save_image_file(img)
+        all_files.append(img.filename)
+        session['uploads'] = all_files
+    flash('Photos uploaded successfully', 'success')
+    return redirect(url_for('main.workspace'))
 
 
 @main.route('/queue/<task_id>')
