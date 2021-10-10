@@ -24,10 +24,8 @@ images = UploadSet('images', IMAGES)
 def is_image_valid(image):
     '''Check if image is valid'''
 
-    if imghdr.what(image) == 'png' or imghdr.what(image) == 'jpeg':
-        return True
-    else:
-        return False
+    valid_image = imghdr.what(image)
+    return valid_image == 'png' or valid_image == 'jpeg'
 
 
 def rename_image_file(filename):
@@ -50,11 +48,11 @@ def check_quantity(files):
         return True
 
 
-def save_image_file(img_file):
+def save_image_file(image_file):
     '''Try to save the image file'''
 
     try:
-        images.save(img_file)
+        images.save(image_file)
     except UploadNotAllowed:
         flash('File type not allowed.', 'failure')
         return redirect(url_for('main.index'))
