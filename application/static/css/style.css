@@ -300,10 +300,11 @@ footer p a:hover {
     color: #000000;
 }
 
-
-.wave {
+.wave-image {
     left: 0;
     right: 0;
+    width: 100%;
+    max-height: 170px;
     bottom: 110px;
     position: absolute;
 }
