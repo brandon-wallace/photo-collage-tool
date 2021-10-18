@@ -10,7 +10,6 @@ pytest = "*"
 [packages]
 Pillow = "*"
 Flask-WTF = "*"
-numpy = "*"
 Flask-Reuploaded = "*"
 celery = "*"
 Flask = "*"

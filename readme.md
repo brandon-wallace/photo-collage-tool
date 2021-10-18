@@ -15,7 +15,6 @@ Built with:
 * RabbitMQ 
 * Celery 
 * Pillow 
-* Numpy
 
 Development:
 
