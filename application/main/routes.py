@@ -103,11 +103,12 @@ def task_status(task_id):
     return jsonify(response)
 
 
-def set_default_background(bg_color):
+def set_default_background(background_color):
     '''Set default background to transparent'''
 
-    if bg_color == '#000001':
+    if background_color == '#000001':
         return (0, 0, 0, 0)
+    return background_color
 
 
 @main.get('/workspace')
