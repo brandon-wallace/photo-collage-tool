@@ -131,7 +131,7 @@ def create_collage(images, size=500):
         border = request.form.get('border')
         background = set_default_background(request.form.get('background'))
         orientation = request.form.get('orientation')
-        merged_images = [merge_images(img, border, background)
+        merged_images = [merge_images(img, int(border), background)
                          for img in images]
         # collage = generate_collage(merged_images, orientation)
         # collage = generate_collage.apply_async(args=[merged_images,
