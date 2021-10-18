@@ -23,20 +23,21 @@ def save_path():
 def resize_image(image_file, size, border, background):
     '''Resize images'''
 
-    image = Image.open(image_file)
+    image = Image.open(Path(save_path() / image_file))
     image_png = image.convert('RGBA')
     image_resized = image_png.resize((size, size))
     image_with_border = ImageOps.expand(image_resized,
                                         border=border, fill=background)
     filename = f'resized_{datetime.utcnow().strftime("%Y%m%d-%H%M%S%f")}.png'
-    image_with_border.save(save_path / filename)
+    image_with_border.save(Path(save_path() / filename))
+    print(image_with_border)
     return image_with_border
 
 
 def merge_images(image_list):
 
     total_width = sum(img.width for img in image_list)
-    merged_image = Image.new('RGB', (total_width, image_list[0].height))
+    merged_image = Image.new('RGBA', (total_width, image_list[0].height))
     x_axis = 0
     for img in image_list:
         merged_image.paste(img, (x_axis, 0))
@@ -49,8 +50,9 @@ def generate_collage(images, size, border, background, orientation):
 
     all_images = []
     for image_file in images:
-        resized = resize_image(image_file, size, border, background)
-        all_images.append(resized)
+        resized_image = resize_image(image_file, size, int(border), background)
+        all_images.append(resized_image)
     collage = merge_images(all_images)
     filename = f'collage_{datetime.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
-    collage.save(save_path / filename)
+    collage.save(Path(save_path() / filename))
+    return filename
