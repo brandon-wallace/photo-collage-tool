@@ -29,7 +29,7 @@ def resize_image(image_file, size, border, background):
     image_resized = image_png.resize((size, size))
     image_with_border = ImageOps.expand(image_resized,
                                         border=border, fill=background)
-    filename = f'resized_{datetime.utcnow().strftime("%Y%m%d-%H%M%S")}.png'
+    filename = f'resized_{datetime.utcnow().strftime("%Y%m%d-%H%M%S%f")}.png'
     image_with_border.save(filename)
     return image_with_border
 
