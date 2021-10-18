@@ -6,8 +6,6 @@ from datetime import datetime
 from PIL import Image, ImageOps
 from application import celery
 
-default_path = environ.get('UPLOADED_IMAGES_DEST')
-
 
 def rename_image(label, image):
     '''Rename images'''
@@ -15,10 +13,11 @@ def rename_image(label, image):
     return f'{label}_{image}'
 
 
-def save_image_to(path):
+def save_path():
     '''Set directory to save images to'''
 
-    return Path(path)
+    default_path = environ.get('UPLOADED_IMAGES_DEST')
+    return Path(default_path)
 
 
 def resize_image(image_file, size, border, background):
@@ -30,7 +29,7 @@ def resize_image(image_file, size, border, background):
     image_with_border = ImageOps.expand(image_resized,
                                         border=border, fill=background)
     filename = f'resized_{datetime.utcnow().strftime("%Y%m%d-%H%M%S%f")}.png'
-    image_with_border.save(filename)
+    image_with_border.save(save_path / filename)
     return image_with_border
 
 
@@ -46,6 +45,12 @@ def merge_images(image_list):
 
 
 @celery.task()
-def generate_collage(images, orientation):
+def generate_collage(images, size, border, background, orientation):
 
-    pass
+    all_images = []
+    for image_file in images:
+        resized = resize_image(image_file, size, border, background)
+        all_images.append(resized)
+    collage = merge_images(all_images)
+    filename = f'collage_{datetime.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
+    collage.save(save_path / filename)
