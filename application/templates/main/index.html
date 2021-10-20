@@ -15,29 +15,19 @@
     <p>Hold CTRL to select mutiple files.</p>
     {{ form.submit(class='btn btn--solid upload-btn') }}
 
-  </form>
+    <div class="center">
 
-  {% if files %}
-    <ul>
-      {% for file in files %}
+      <div class="spinner">
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+      </div>
 
-        <li>{{ file }}</li>
-
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  <div class="center">
-
-    <div class="spinner">
-      <div></div><div></div>
-      <div></div><div></div>
-      <div></div><div></div>
-      <div></div><div></div>
-      <div></div><div></div>
-      <div></div><div></div>
     </div>
 
-  </div>
+  </form>
 
 {% endblock %}
