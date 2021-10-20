@@ -9,7 +9,7 @@ from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
-# from celery.result import AsyncResult
+from celery.result import AsyncResult
 from ..tasks import resize_image, merge_images
 from application.forms import UploadForm, ImageSettingsForm
 
@@ -90,7 +90,7 @@ def uploads():
 def get_status(task_id):
     '''Get task ID route'''
 
-    task = generate_collage.AsyncResult(task_id)
+    task = merge_images.AsyncResult(task_id)
     return task
 
 
@@ -98,7 +98,7 @@ def get_status(task_id):
 def task_status(task_id):
     '''Task ID route'''
 
-    task = generate_collage.AsyncResult(task_id)
+    task = merge_images.AsyncResult(task_id)
     response = task.state
     return jsonify(response)
 
@@ -128,14 +128,12 @@ def create_collage(images, size=500):
     images_list = ast.literal_eval(images)
 
     if form.validate_on_submit():
-        resized_img_list = []
-        collage_images = []
         border = int(request.form.get('border'))
         background = set_default_background(request.form.get('background'))
         orientation = request.form.get('orientation')
-
-        resize_image.delay(images_list, 500, border, background)
-        # session['collage'] = collage
+        all_images = resize_image(images_list, 500, border, background)
+        collage = merge_images.delay(all_images, orientation)
+        session['collage'] = collage
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
 
