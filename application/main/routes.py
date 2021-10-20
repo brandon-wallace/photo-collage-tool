@@ -10,7 +10,7 @@ from flask import (Blueprint, render_template, request, abort, redirect,
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
 # from celery.result import AsyncResult
-from ..tasks import generate_collage
+from ..tasks import resize_image, merge_images
 from application.forms import UploadForm, ImageSettingsForm
 
 main = Blueprint('main', __name__,
@@ -49,7 +49,7 @@ def check_quantity(files):
 
 
 def save_image_file(image_file):
-    '''Try to save the image file'''
+    '''Try to save the uploaded image on server'''
 
     try:
         images.save(image_file)
@@ -108,7 +108,7 @@ def set_default_background(background_color):
 
     if background_color == '#000001':
         return (0, 0, 0, 0)
-    return background_color
+    return (0, 0, 1, 1)
 
 
 @main.get('/workspace')
@@ -125,19 +125,17 @@ def create_collage(images, size=500):
     '''Create collage of the images'''
 
     form = ImageSettingsForm()
-    images = ast.literal_eval(images)
+    images_list = ast.literal_eval(images)
 
     if form.validate_on_submit():
-        border = request.form.get('border')
+        resized_img_list = []
+        collage_images = []
+        border = int(request.form.get('border'))
         background = set_default_background(request.form.get('background'))
         orientation = request.form.get('orientation')
-        # collage = generate_collage.delay(merged_images, orientation)
-        # collage = generate_collage.apply_async(args=[merged_images,
-        #                                        orientation],
-        #                                        serializer='json')
-        collage = generate_collage(images, size, border,
-                                   background, orientation)
-        session['collage'] = collage
+
+        resize_image.delay(images_list, 500, border, background)
+        # session['collage'] = collage
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
 
