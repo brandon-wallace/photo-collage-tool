@@ -40,12 +40,20 @@ def merge_images(image_list, orientation='horizontal'):
     for filename in image_list:
         img_obj = Image.open(f'{upload_directory}/{filename}')
         image_objects.append(img_obj)
-    total_width = sum(img.width for img in image_objects)
-    merged_image = Image.new('RGBA', (total_width, image_objects[0].height))
-    x_axis = 0
-    for img in image_objects:
-        merged_image.paste(img, (x_axis, 0))
-        x_axis += img.width
+    if orientation == 'horizontal':
+        total_width = sum(img.width for img in image_objects)
+        merged_image = Image.new('RGBA', (total_width, image_objects[0].height))
+        x_axis = 0
+        for img in image_objects:
+            merged_image.paste(img, (x_axis, 0))
+            x_axis += img.width
+    else:
+        total_height = sum(img.height for img in image_objects)
+        merged_image = Image.new('RGBA', (image_objects[0].width, total_height))
+        y_axis = 0
+        for img in image_objects:
+            merged_image.paste(img, (0, y_axis))
+            y_axis += img.height
     filename = f'collage_{datetime.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
     merged_image.save(f'{upload_directory}/{filename}')
     return {'filename': filename}
