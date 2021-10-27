@@ -9,10 +9,10 @@
   {% if image %}
 
     <div class="collage">
-      <img src="../static/images/uploads/{{ image }}">
+      <img src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
     </div>
     
-    <a class="btn" href="{{ url_for('main.download_image', filename=image) }}" alt="PNG Collage Image">DOWNLOAD</a>
+    <a class="btn download-btn" href="{{ url_for('main.download_image', filename=image) }}">DOWNLOAD</a>
 
   {% endif %}
 

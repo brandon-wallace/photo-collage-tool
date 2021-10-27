@@ -243,14 +243,15 @@ li {
 
 .flash-messages p {
     margin: 0;
-    color: #FFFFFF;
+    color: #0050CC;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
 }
 
 .success {
-    background-color: #02CC02;
+    color: #FFE970;
+    background-color: #0050CC;
 }
 
 .failure {
@@ -320,7 +321,13 @@ footer p a:hover {
 
 .collage img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.download-btn {
+    margin-bottom: 6em;
 }
 
 .error-text {
@@ -508,7 +515,7 @@ footer p a:hover {
 
 @media only screen and (min-width: 800px) {
     .collage {
-        max-width: 800px;
+        max-width: 600px;
     }
 }
 
