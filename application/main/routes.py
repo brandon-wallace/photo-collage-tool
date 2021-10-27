@@ -5,11 +5,11 @@ import random
 import string
 import imghdr
 from os import environ
+from datetime import datetime as dt
 from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
-from celery.result import AsyncResult
 from ..tasks import resize_image, merge_images
 from application.forms import UploadForm, ImageSettingsForm
 
@@ -91,16 +91,7 @@ def get_status(task_id):
     '''Get task ID route'''
 
     task = merge_images.AsyncResult(task_id)
-    return task
-
-
-@main.get('/status/<task_id>')
-def task_status(task_id):
-    '''Task ID route'''
-
-    task = merge_images.AsyncResult(task_id)
-    response = task.state
-    return jsonify(response)
+    return jsonify(task)
 
 
 def set_default_background(background_color):
@@ -132,8 +123,9 @@ def create_collage(images, size=500):
         background = set_default_background(request.form.get('background'))
         orientation = request.form.get('orientation')
         all_images = resize_image(images_list, 500, border, background)
-        collage = merge_images.delay(all_images, orientation)
-        session['collage'] = collage
+        filename = f'collage_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
+        merge_images.delay(all_images, filename, orientation)
+        session['collage'] = filename
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)
 
