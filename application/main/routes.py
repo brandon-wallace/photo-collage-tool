@@ -86,7 +86,7 @@ def uploads():
     return redirect(url_for('main.workspace'))
 
 
-@main.route('/queue/<task_id>')
+@main.route('/queue/<task_id>', methods=['GET', 'POST'])
 def get_status(task_id):
     '''Get task ID route'''
 

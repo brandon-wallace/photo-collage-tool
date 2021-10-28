@@ -27,7 +27,6 @@ def resize_image(images, size, border, background=(0, 0, 0, 0)):
         filename = f'resized_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
         image_with_border.save(f'{upload_directory}/{filename}')
         resized_images.append(f'{filename}')
-    # return {'resized_images': resized_images}
     return resized_images
 
 
