@@ -342,6 +342,7 @@ footer p a:hover {
 
 .disabled {
     background-color: #666666;
+    outline: 2px solid #000000;
 }
 
 .progress-bar {
