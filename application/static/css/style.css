@@ -260,7 +260,7 @@ li {
 .close {
     border: 0;
     padding: .5rem;
-    color: #111111;
+    color: #0050CC;
     cursor: pointer;
     font-size: 2rem;
     line-height: 26px;
@@ -341,7 +341,7 @@ footer p a:hover {
 }
 
 .disabled {
-    background-color: #AAAAAA;
+    background-color: #666666;
 }
 
 .progress-bar {
