@@ -31,8 +31,10 @@ if (uploadForm) {
 const fileInput = document.getElementById('images');
 const uploadBtn = document.querySelector('.upload-btn');
 
-uploadBtn.disable = true;
-uploadBtn.classList.add('disabled');
+if (uploadBtn) {
+    uploadBtn.disable = true;
+    uploadBtn.classList.add('disabled');
+}
 
 const checkFileSize = () => {
     const allFiles = [...fileInput.files];
@@ -52,3 +54,9 @@ const checkFileSize = () => {
 if (fileInput) {
     fileInput.addEventListener('change', checkFileSize);
 }
+
+
+// Check the status of a task.
+
+const generateBtn = document.querySelector('.generate');
+generateBtn.addEventListener('mouseenter', () => console.log('clicked'));
