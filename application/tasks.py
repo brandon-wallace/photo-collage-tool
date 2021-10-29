@@ -1,4 +1,9 @@
-# application/tasks.py
+'''
+application/tasks.py
+
+Tasks to resize and merge images.
+
+'''
 
 from os import environ
 from pathlib import Path
