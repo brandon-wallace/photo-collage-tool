@@ -6,14 +6,27 @@
 
 {% block content %}
   
-  {% if image %}
+  <div class="collage">
 
-    <div class="collage">
-      <img src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
+    {% if image %}
+      <img class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
+    {% endif %}
+
+  </div>
+
+  <div class="center">
+
+    <div class="spinner">
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
+      <div></div><div></div>
     </div>
-    
-    <a class="btn download-btn" href="{{ url_for('main.download_image', filename=image) }}">DOWNLOAD</a>
 
-  {% endif %}
+  </div>
+  
+  <a class="btn download-btn" href="{{ url_for('main.download_image', filename=image) }}">DOWNLOAD</a>
 
 {% endblock %}

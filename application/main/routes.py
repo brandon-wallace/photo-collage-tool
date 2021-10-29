@@ -5,6 +5,7 @@ import random
 import string
 import imghdr
 from os import environ
+from pathlib import Path
 from datetime import datetime as dt
 from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
@@ -146,6 +147,11 @@ def download_image(filename):
 def display_collage():
     '''Display collage to download'''
 
+    image_file = Path(session['collage'])
+    if image_file.is_file():
+        print('File exists.')
+    else:
+        print('File does not exist.')
     return render_template('main/result.html', image=session['collage'])
 
 
