@@ -1,4 +1,9 @@
-# application/main/routes.py
+'''
+application/main/routes.py
+
+Routes to display views for project.
+
+'''
 
 import ast
 import random
@@ -11,8 +16,8 @@ from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
 from flask_uploads import IMAGES, UploadSet
 from flask_uploads.exceptions import UploadNotAllowed
-from ..tasks import resize_image, merge_images
 from application.forms import UploadForm, ImageSettingsForm
+from ..tasks import resize_image, merge_images
 
 main = Blueprint('main', __name__,
                  template_folder='templates',
@@ -26,7 +31,7 @@ def is_image_valid(image):
     '''Check if image is valid'''
 
     valid_image = imghdr.what(image)
-    return valid_image == 'png' or valid_image == 'jpeg'
+    return valid_image in ('png', 'jpeg')
 
 
 def rename_image_file(filename):
@@ -47,6 +52,7 @@ def check_quantity(files):
     if len(files) > 6:
         flash('Maximum number of images exceeded.', 'failure')
         return True
+    return None
 
 
 def save_image_file(image_file):
@@ -57,6 +63,7 @@ def save_image_file(image_file):
     except UploadNotAllowed:
         flash('File type not allowed.', 'failure')
         return redirect(url_for('main.index'))
+    return None
 
 
 @main.get('/')
@@ -115,7 +122,7 @@ def set_default_background(background_color):
 
 
 @main.get('/workspace')
-def workspace(uploads=None):
+def workspace():
     '''Workspace route'''
 
     form = ImageSettingsForm()
@@ -123,12 +130,12 @@ def workspace(uploads=None):
                            form=form, files=session['uploads'])
 
 
-@main.route('/generate/<images>', methods=['GET', 'POST'])
-def create_collage(images, size=500):
+@main.route('/generate/<imgs>', methods=['GET', 'POST'])
+def create_collage(imgs):
     '''Create collage of the images'''
 
     form = ImageSettingsForm()
-    images_list = ast.literal_eval(images)
+    images_list = ast.literal_eval(imgs)
 
     if form.validate_on_submit():
         border = int(request.form.get('border'))
@@ -155,6 +162,7 @@ def download_image(filename):
                                    as_attachment=True)
     except FileNotFoundError:
         abort(404)
+    return None
 
 
 @main.get('/result')
