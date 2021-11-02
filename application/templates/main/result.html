@@ -5,11 +5,17 @@
 {% block title %}Photo Collage Tool{% endblock %}
 
 {% block content %}
+
+  <p class="task-status">?</p>
+  <p class="task-state">?</p>
   
   <div class="collage">
 
     {% if image %}
+      <img class="collage__image" src="../static/images/placeholder.png" alt="PNG Collage Image">
+      <!--
       <img class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
+      -->
     {% endif %}
 
   </div>

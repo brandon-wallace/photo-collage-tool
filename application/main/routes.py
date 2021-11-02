@@ -87,12 +87,23 @@ def uploads():
     return redirect(url_for('main.workspace'))
 
 
-@main.route('/queue/<task_id>', methods=['GET', 'POST'])
-def get_status(task_id):
+@main.route('/queue', methods=['GET', 'POST'])
+def get_status():
     '''Get task ID route'''
 
-    task = merge_images.AsyncResult(task_id)
-    return jsonify(task)
+    task = merge_images.AsyncResult(session['task_id'])
+    print(f'STATE: {task.state}')
+    print(f'READY: {task.ready()}')
+    print(f'STATUS: {task.status}')
+    if task.state == 'PENDING':
+        result = {
+                'state': task.ready()
+                }
+    else:
+        result = {
+                'state': task.ready()
+                }
+    return jsonify(result)
 
 
 def set_default_background(background_color):
@@ -125,7 +136,10 @@ def create_collage(images, size=500):
         orientation = request.form.get('orientation')
         all_images = resize_image(images_list, 500, border, background)
         filename = f'collage_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
-        merge_images.delay(all_images, filename, orientation)
+        # task = merge_images.delay(all_images, filename, orientation)
+        task = merge_images.apply_async(args=[all_images, filename,
+                                        orientation], countdown=5)
+        session['task_id'] = task.id
         session['collage'] = filename
         return redirect(url_for('main.display_collage'))
     return render_template('main/workspace.html', form=form)

@@ -30,8 +30,8 @@ def resize_image(images, size, border, background=(0, 0, 0, 0)):
     return resized_images
 
 
-@celery.task()
-def merge_images(image_list, filename, orientation='horizontal'):
+@celery.task(bind=True)
+def merge_images(self, image_list, filename, orientation='horizontal'):
     '''Merge images together'''
 
     upload_directory = save_path()
@@ -56,4 +56,4 @@ def merge_images(image_list, filename, orientation='horizontal'):
             merged_image.paste(img, (0, y_axis))
             y_axis += img.height
     merged_image.save(f'{upload_directory}/{filename}')
-    return
+    return {'progress': 100, 'status': 'completed'}

@@ -79,20 +79,46 @@ collageImg.addEventListener('load', hideLoader);
 
 // ================
 
+let taskStatus = document.querySelector('.task-status');
+let taskState = document.querySelector('.task-state');
 const collageDiv = document.querySelector('.collage');
+
+const getStatus = () => {
+    fetch('/queue')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        console.log(data.state);
+        document.querySelector('.task-state').textContent = data.state;
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+}
 
 if (collageDiv) {
     let count = 0;
-    const intervalId = setInterval(() => {
-        document.querySelector('.spinner').style.display = 'inline-block';
-        let collage = document.querySelector('.collage__image');
-        console.log(collage.src);
-        console.log(count);
+
+    const timerId = setInterval(() => {
+        document.querySelector('.task-status').textContent = count;
+        getStatus();
         count = count + 1;
-        if (collage) {
-            document.querySelector('.spinner').style.display = 'none';
-            clearInterval(intervalId);
-        }
-        
     }, 1000);
 }
+
+//if (collageDiv) {
+//    let count = 0;
+//    const intervalId = setInterval(() => {
+//        document.querySelector('.spinner').style.display = 'inline-block';
+//        let collage = document.querySelector('.collage__image');
+//        document.querySelector('.task-status').textContent = count;
+//        console.log(collage.src);
+//        console.log(count);
+//        count = count + 1;
+//        if (collage) {
+//            document.querySelector('.spinner').style.display = 'none';
+//            clearInterval(intervalId);
+//        }
+//        
+//    }, 1000);
+//}
