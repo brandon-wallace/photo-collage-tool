@@ -143,7 +143,6 @@ def create_collage(imgs):
         orientation = request.form.get('orientation')
         all_images = resize_image(images_list, 500, border, background)
         filename = f'collage_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
-        # task = merge_images.delay(all_images, filename, orientation)
         task = merge_images.apply_async(args=[all_images, filename,
                                         orientation], countdown=5)
         session['task_id'] = task.id

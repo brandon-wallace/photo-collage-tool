@@ -22,7 +22,7 @@
 
   <div id="status"></div>
 
-  <form action="{{ url_for('main.create_collage', images=files) }}" method="POST">
+  <form action="{{ url_for('main.create_collage', imgs=files) }}" method="POST">
   
     {{ form.csrf_token }}
 
