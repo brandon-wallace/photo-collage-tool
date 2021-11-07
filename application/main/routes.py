@@ -1,10 +1,9 @@
 '''
 application/main/routes.py
 
-Routes to display views for project.
-
 '''
 
+import time
 import ast
 import random
 import string
@@ -78,6 +77,7 @@ def index():
 def uploads():
     '''Display uploaded images'''
 
+    time.sleep(5)
     all_files = []
     file_obj = request.files.getlist('images')
     if check_quantity(file_obj):
@@ -130,12 +130,12 @@ def workspace():
                            form=form, files=session['uploads'])
 
 
-@main.route('/generate/<imgs>', methods=['GET', 'POST'])
-def create_collage(imgs):
+@main.route('/generate/<images>', methods=['GET', 'POST'])
+async def create_collage(images):
     '''Create collage of the images'''
 
     form = ImageSettingsForm()
-    images_list = ast.literal_eval(imgs)
+    images_list = ast.literal_eval(images)
 
     if form.validate_on_submit():
         border = int(request.form.get('border'))
