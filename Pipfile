@@ -19,3 +19,6 @@ colour = "*"
 
 [requires]
 python_version = "3.9"
+
+[packages.flask]
+extras = [ "async",]
