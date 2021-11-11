@@ -87,7 +87,6 @@ const getStatus = () => {
     fetch('/queue')
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
         console.log(data.state);
         document.querySelector('.task-state').textContent = data.state;
     })
@@ -96,12 +95,33 @@ const getStatus = () => {
     });
 }
 
+const getFilename = () => {
+    let imagePath = document.querySelector('.collage__image').src;
+    let image = imagePath.split('/')
+    let filename = image[image.length - 1]
+
+    console.log(filename);
+    imagePath.onload = () => {
+        console.log('image loaded');
+    }
+    /*
+    fetch('/result')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+    */
+}
+
 if (collageDiv) {
     let count = 0;
-
     const timerId = setInterval(() => {
-        document.querySelector('.task-status').textContent = count;
         getStatus();
+        getFilename();
+        document.querySelector('.task-status').textContent = count;
         count = count + 1;
     }, 1000);
 }

@@ -11,12 +11,13 @@
   
   <div class="collage">
 
+    {# 
     {% if image %}
       <img class="collage__image" src="../static/images/placeholder.png" alt="PNG Collage Image">
-      <!--
-      <img class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
-      -->
+      <img loading="lazy" class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
     {% endif %}
+    #}
+    <img loading="lazy" class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
 
   </div>
 
