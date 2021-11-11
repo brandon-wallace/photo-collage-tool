@@ -13,7 +13,7 @@
     {% if files %}
       {% for file in files %}
 
-        <img class="thumbnail__images" src="static/images/uploads/{{ file }}" alt="PNG Image">
+        <img loading="lazy" class="thumbnail__images" src="static/images/uploads/{{ file }}" alt="PNG Image">
 
       {% endfor %}
     {% endif %}
@@ -22,7 +22,7 @@
 
   <div id="status"></div>
 
-  <form action="{{ url_for('main.create_collage', imgs=files) }}" method="POST">
+  <form action="{{ url_for('main.create_collage', images=files) }}" method="POST">
   
     {{ form.csrf_token }}
 
