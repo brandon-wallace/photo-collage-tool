@@ -13,7 +13,6 @@
     {{ form.csrf_token }}
     {{ form.images(class='browse', multiple='true') }}
     <p>Hold CTRL to select mutiple files.</p>
-    {{ form.submit(class='btn btn--solid upload-btn') }}
 
     <div class="center">
 
@@ -27,6 +26,8 @@
       </div>
 
     </div>
+
+    {{ form.submit(class='btn btn--solid upload-btn') }}
 
   </form>
 
