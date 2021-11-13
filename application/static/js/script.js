@@ -61,84 +61,18 @@ if (fileInput) {
 
 // Display loader icon on click of upload button.
 
+const collageDiv = document.querySelector('.collage');
 const collageImg = document.querySelector('.collage__image');
 
 if (collageImg) {
     window.addEventListener('pageshow', () => {
         document.querySelector('.spinner').style.display = 'inline-block';
     });
+
+    const hideLoader = (event) => {
+        console.log(`Hiding spinning loader.`);
+        document.querySelector('.spinner').style.display = 'none';
+    };
+
+    collageImg.addEventListener('load', hideLoader);
 }
-
-const hideLoader = (event) => {
-    console.log(`Image loaded`);
-    document.querySelector('.spinner').style.display = 'none';
-};
-
-collageImg.addEventListener('load', hideLoader);
-
-
-// ================
-
-let taskStatus = document.querySelector('.task-status');
-let taskState = document.querySelector('.task-state');
-const collageDiv = document.querySelector('.collage');
-
-const getStatus = () => {
-    fetch('/queue')
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data.state);
-        document.querySelector('.task-state').textContent = data.state;
-    })
-    .catch((error) => {
-        console.error(error);
-    });
-}
-
-const getFilename = () => {
-    let imagePath = document.querySelector('.collage__image').src;
-    let image = imagePath.split('/')
-    let filename = image[image.length - 1]
-
-    console.log(filename);
-    imagePath.onload = () => {
-        console.log('image loaded');
-    }
-    /*
-    fetch('/result')
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-    */
-}
-
-if (collageDiv) {
-    let count = 0;
-    const timerId = setInterval(() => {
-        getStatus();
-        getFilename();
-        document.querySelector('.task-status').textContent = count;
-        count = count + 1;
-    }, 1000);
-}
-
-//if (collageDiv) {
-//    let count = 0;
-//    const intervalId = setInterval(() => {
-//        document.querySelector('.spinner').style.display = 'inline-block';
-//        let collage = document.querySelector('.collage__image');
-//        document.querySelector('.task-status').textContent = count;
-//        console.log(collage.src);
-//        console.log(count);
-//        count = count + 1;
-//        if (collage) {
-//            document.querySelector('.spinner').style.display = 'none';
-//            clearInterval(intervalId);
-//        }
-//        
-//    }, 1000);
-//}
