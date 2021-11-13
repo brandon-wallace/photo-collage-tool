@@ -144,7 +144,7 @@ async def create_collage(images):
         all_images = resize_image(images_list, 500, border, background)
         filename = f'collage_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
         task = merge_images.apply_async(args=[all_images, filename,
-                                        orientation], countdown=10)
+                                        orientation], countdown=2)
         session['task_id'] = task.id
         session['collage'] = filename
         return redirect(url_for('main.display_collage'))
