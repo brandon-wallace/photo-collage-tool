@@ -16,18 +16,31 @@ const getStatus = () => {
     });
 }
 
-const checkStatus = (fileName) => {
+
+const checkStatus = (imageElement) => {
+
     const mseconds = 1000;
+
     (function reloadImage() {
         let imagePath = '';
-        if (fileName.src.indexOf('?') > -1) {
-            imagePath = fileName.src.split('?')[0];
+        if (imageElement.src.indexOf('?') > -1) {
+            imagePath = imageElement.src.split('?')[0];
         } else {
-            imagePath = fileName.src;
+            imagePath = imageElement.src;
         }
-        fileName.src = `${imagePath}?t=${new Date().getTime()}`;
+        imageElement.src = `${imagePath}?t=${new Date().getTime()}`;
 
-        setTimeout(reloadImage, mseconds);
+        async function stopTimeout() {
+            let response = await fetch(imageElement.src)
+            if (response.status === 200) {
+                return;
+            } else {
+                setTimeout(reloadImage, mseconds);
+            }
+        }
+
+        stopTimeout();
+
     })();
 }
 
