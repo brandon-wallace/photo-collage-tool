@@ -13,7 +13,7 @@
     {% if files %}
       {% for file in files %}
 
-        <img loading="lazy" class="thumbnail__images" src="static/images/uploads/{{ file }}" alt="PNG Image">
+        <img class="thumbnail__images" src="static/images/uploads/{{ file }}" alt="PNG Image">
 
       {% endfor %}
     {% endif %}
@@ -31,10 +31,10 @@
       <ul>
 
         {% for subfield in form.orientation %}
-        <li>
+          <li>
             <span>{{ subfield }}</span>
             <span>{{ subfield.label }}</span>
-        </li>
+          </li>
         {% endfor %}
 
         <li>

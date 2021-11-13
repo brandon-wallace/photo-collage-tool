@@ -11,13 +11,7 @@
   
   <div class="collage">
 
-    {# 
-    {% if image %}
-      <img class="collage__image" src="../static/images/placeholder.png" alt="PNG Collage Image">
-      <img loading="lazy" class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
-    {% endif %}
-    #}
-    <img loading="lazy" class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
+    <img class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
 
   </div>
 
@@ -35,5 +29,7 @@
   </div>
   
   <a class="btn download-btn" href="{{ url_for('main.download_image', filename=image) }}">DOWNLOAD</a>
+
+  <script src="{{ url_for('static', filename='js/loadimage.js') }}"></script>
 
 {% endblock %}
