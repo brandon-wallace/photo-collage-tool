@@ -61,4 +61,4 @@ def merge_images(self, image_list, filename, orientation='horizontal'):
             merged_image.paste(img, (0, y_axis))
             y_axis += img.height
     merged_image.save(f'{upload_directory}/{filename}')
-    return {'progress': 100, 'status': 'completed'}
+    return

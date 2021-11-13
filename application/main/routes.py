@@ -3,13 +3,11 @@ application/main/routes.py
 
 '''
 
-import time
 import ast
 import random
 import string
 import imghdr
 from os import environ
-from pathlib import Path
 from datetime import datetime as dt
 from flask import (Blueprint, render_template, request, abort, redirect,
                    jsonify, url_for, flash, session, send_from_directory)
@@ -77,7 +75,6 @@ def index():
 def uploads():
     '''Display uploaded images'''
 
-    time.sleep(5)
     all_files = []
     file_obj = request.files.getlist('images')
     if check_quantity(file_obj):
@@ -99,16 +96,19 @@ def get_status():
     '''Get task ID route'''
 
     task = merge_images.AsyncResult(session['task_id'])
+    print(f'TASK: {task}')
     print(f'STATE: {task.state}')
     print(f'READY: {task.ready()}')
     print(f'STATUS: {task.status}')
     if task.state == 'PENDING':
         result = {
-                'state': task.ready()
+                'state': task.ready(),
+                'status': task.status
                 }
     else:
         result = {
-                'state': task.ready()
+                'state': task.ready(),
+                'status': task.status
                 }
     return jsonify(result)
 
@@ -144,7 +144,7 @@ async def create_collage(images):
         all_images = resize_image(images_list, 500, border, background)
         filename = f'collage_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
         task = merge_images.apply_async(args=[all_images, filename,
-                                        orientation], countdown=5)
+                                        orientation], countdown=10)
         session['task_id'] = task.id
         session['collage'] = filename
         return redirect(url_for('main.display_collage'))
@@ -168,11 +168,6 @@ def download_image(filename):
 def display_collage():
     '''Display collage to download'''
 
-    image_file = Path(session['collage'])
-    if image_file.is_file():
-        print('File exists.')
-    else:
-        print('File does not exist.')
     return render_template('main/result.html', image=session['collage'])
 
 
