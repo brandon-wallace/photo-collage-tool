@@ -343,7 +343,7 @@ footer p a:hover {
 
 .error-image {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 8em auto;
     max-width: 280px;
 }
 
