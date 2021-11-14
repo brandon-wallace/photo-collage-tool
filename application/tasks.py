@@ -18,7 +18,7 @@ def save_path():
     return Path(environ.get('UPLOADED_IMAGES_DEST'))
 
 
-def resize_image(images, size, border, background=(0, 0, 0, 0)):
+def resize_image(images, size=500, border=0, background=(0, 0, 0, 0)):
     '''Resize images to square shapes'''
 
     upload_directory = save_path()
