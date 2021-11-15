@@ -19,7 +19,8 @@ Built with:
 Development:
 
 * Pytest
-* Tox
+
+![tests](https://github.com/brandon-wallace/photo-collage-tool/actions/workflows/python-app.yml/badge.svg)
 
 ## Screenshot 
 
