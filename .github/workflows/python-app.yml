@@ -43,6 +43,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
+        PASSWORD: ${{ secrets.PASSWORD }}
         KEY: ${{ secrets.KEY }}
       with:
         source: "."
