@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-tox = "*"
 pytest = "*"
 
 [packages]
@@ -12,7 +11,6 @@ Pillow = "*"
 Flask-WTF = "*"
 Flask-Reuploaded = "*"
 celery = "*"
-Flask = "*"
 python-dotenv = "*"
 WTForms-Components = "*"
 colour = "*"
@@ -20,5 +18,5 @@ colour = "*"
 [requires]
 python_version = "3.9"
 
-[packages.flask]
+[packages.Flask]
 extras = [ "async",]
