@@ -6,6 +6,8 @@
 
 ## Testing with Pytest.
 
+## Python script set up with cron job scheduled to removes old files.
+
 This is an open source project from [DevProjects](http://www.codementor.io/projects). Feedback and questions are welcome!
 
 Find the project requirements here: [Online photo collage tool](https://www.codementor.io/projects/web/online-photo-collage-tool-atx32mwend)
@@ -19,6 +21,8 @@ Built with:
 * RabbitMQ 
 * Celery 
 * Pillow 
+* Gunicorn
+* Nginx
 
 Development:
 
@@ -140,6 +144,16 @@ $ flask run
 ```
 
 Browse to http://127.0.0.1:5000
+
+Set up a crontab to delete old files on the server.
+
+```
+$ crontab -e
+
+# Add this line to run script every 10 minutes.
+
+10   *   *   *   *   python3 /var/www/photo-collage/application/remove_files.py
+```
 
 
 ## License
