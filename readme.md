@@ -1,6 +1,10 @@
 # DevProjects - Photo Collage Tool
 
-## Upload and combine images asynchronously using a task queue to create a photo collage horizontally or vertically with the option to set a border and background color. 
+## Upload and combine images asynchronously using a task queue to create a photo collage. Select horizontally or vertically orientation with the option to set a border and background color. 
+
+## Continuous Integration and continuous development deployment with Github Actions.
+
+## Testing with Pytest.
 
 This is an open source project from [DevProjects](http://www.codementor.io/projects). Feedback and questions are welcome!
 
