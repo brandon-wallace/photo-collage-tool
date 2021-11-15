@@ -33,6 +33,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       env:
-        UPLOADED_IMAGES_DEST: ${{secrets.UPLOADED_IMAGES_DEST }}
+        UPLOADED_IMAGES_DEST: ${{ secrets.UPLOADED_IMAGES_DEST }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         pytest -v
