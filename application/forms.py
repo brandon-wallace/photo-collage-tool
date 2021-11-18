@@ -3,7 +3,7 @@ from wtforms import (MultipleFileField, SubmitField,
                      RadioField, IntegerField)
 from wtforms_components import ColorField
 from wtforms.validators import InputRequired, NumberRange
-from wtforms.widgets import html5
+from wtforms.widgets import NumberInput
 
 
 class UploadForm(FlaskForm):
@@ -17,6 +17,6 @@ class ImageSettingsForm(FlaskForm):
                                       ('vertical', 'Vertical Collage')])
     background = ColorField('Background Color', validators=[InputRequired()])
     border = IntegerField(validators=[NumberRange(min=0, max=100)])
-    border = IntegerField('Border', widget=html5.NumberInput(min=0, max=100,
-                                                             step=1))
+    border = IntegerField('Border', widget=NumberInput(min=0, max=100,
+                                                       step=1))
     submit = SubmitField('GENERATE COLLAGE')
