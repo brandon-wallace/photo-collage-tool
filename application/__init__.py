@@ -2,10 +2,12 @@
 
 import logging
 from os import environ
+from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from celery import Celery
 
+find_dotenv(load_dotenv())
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
