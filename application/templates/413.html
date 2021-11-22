@@ -1,0 +1,13 @@
+{# application/templates/413.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Request Entity Too Large{% endblock %}
+
+{% block content %}
+
+  <h1 class="error-text">413 Request Entity Too Large</h1>
+
+  <img class="error-image" src="{{ url_for('static', filename='images/blue_sad_face.png') }}" alt="Sad Face Image">
+
+{% endblock %}
