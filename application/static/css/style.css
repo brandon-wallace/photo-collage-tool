@@ -213,6 +213,21 @@ input[type="number"] {
     width: 55px;
 }
 
+ul {
+    padding: 0;
+    max-width: 500px;
+    list-style-type: none;
+    margin: 0 auto 1em auto;
+}
+
+li {
+    margin-bottom: .5em;
+	padding: .25em .75em;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+    font-family: sans-serif;
+}
+
 .flash-messages {
     width: 100%;
     display: -webkit-box;
