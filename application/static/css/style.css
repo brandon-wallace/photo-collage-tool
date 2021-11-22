@@ -534,7 +534,9 @@ footer p a:hover {
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
 }
 
 .custom-shape-divider-bottom-1631545467 svg {
