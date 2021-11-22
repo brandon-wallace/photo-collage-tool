@@ -72,22 +72,22 @@ header h1 {
             transform: scale(1) rotate(-5deg) translateX(-13px) 
                translateY(0) skewX(-5deg) skewY(-1deg);
     text-shadow: 1.25px 1.25px 0 #003A93, 
-        -1.25px -1.25px 0 #003A93, 
-        -1.25px 1.25px 0 #003A93, 
-        1.25px -1.25px 0 #003A93,
-        1px 1px #0050EE, 2px 2px #0050EE, 
-        3px 3px #0050EE, 4px 4px #0050EE, 
-        5px 5px #0050EE, 6px 6px #0050EE, 
-        7px 7px #0050EE, 8px 8px #0050EE, 
-        9px 9px #0050EE, 10px 10px #0050EE, 
-        11px 11px #0050EE, 12px 12px #0050EE, 
-        13px 13px #0050EE, 14px 14px #0050EE, 
-        15px 15px #0050EE, 16px 16px #0050EE, 
-        17px 17px #0050EE, 18px 18px #0050EE, 
-        19px 19px #0050EE, 20px 20px #0050EE, 
-        21px 21px #0050EE, 22px 22px #0050EE, 
-        23px 23px #0050EE, 24px 24px #0050EE, 
-        25px 25px #0050EE, 27px 27px 6px #000000; 
+                -1.25px -1.25px 0 #003A93, 
+                -1.25px 1.25px 0 #003A93, 
+                1.25px -1.25px 0 #003A93,
+                1px 1px #0050EE, 2px 2px #0050EE, 
+                3px 3px #0050EE, 4px 4px #0050EE, 
+                5px 5px #0050EE, 6px 6px #0050EE, 
+                7px 7px #0050EE, 8px 8px #0050EE, 
+                9px 9px #0050EE, 10px 10px #0050EE, 
+                11px 11px #0050EE, 12px 12px #0050EE, 
+                13px 13px #0050EE, 14px 14px #0050EE, 
+                15px 15px #0050EE, 16px 16px #0050EE, 
+                17px 17px #0050EE, 18px 18px #0050EE, 
+                19px 19px #0050EE, 20px 20px #0050EE, 
+                21px 21px #0050EE, 22px 22px #0050EE, 
+                23px 23px #0050EE, 24px 24px #0050EE, 
+                25px 25px #0050EE, 27px 27px 6px #000000; 
 }
 
 main {
@@ -162,21 +162,30 @@ textarea {
     max-width: 500px;
     font-weight: bold;
     font-size: 1.75rem;
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     margin: 0 auto 1em auto;
     background-color: #0050CC;
-    outline: 2px solid #0050EE;
+    box-shadow: 3px 3px 0 0 #0050EE,
+                -3px -3px 0 0 #0050EE,
+                3px -3px 0 0 #0050EE,
+                -3px 3px 0 0 #0050EE;
 }
 
 .btn:hover {
     color: #0050CC;
-    outline: 2px solid #0050CC;
     background-color: #FFFFFF;
+    box-shadow: 3px 3px 0 0 #0050EE,
+                -3px -3px 0 0 #0050EE,
+                3px -3px 0 0 #0050EE,
+                -3px 3px 0 0 #0050EE;
 }
 
 .upload-btn {
-    outline: 2px solid #0050CC;
+    box-shadow: 3px 3px 0 0 #0050EE,
+                -3px -3px 0 0 #0050EE,
+                3px -3px 0 0 #0050EE,
+                -3px 3px 0 0 #0050EE;
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
@@ -202,30 +211,6 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 input[type="number"] {
     width: 55px;
-}
-
-ul {
-    padding: 0;
-    max-width: 500px;
-    list-style-type: none;
-    margin: 0 auto 1em auto;
-}
-
-li {
-    margin-bottom: .5em;
-	padding: .25em .75em;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
-    font-family: sans-serif;
-}
-
-.filenames li {
-    overflow: hidden;
-    white-space: nowrap;
-    -o-text-overflow: ellipsis;
-       text-overflow: ellipsis;
-	background-color: #FFFFFF;
-	border: 2px solid #0050CC;
 }
 
 .flash-messages {
@@ -357,7 +342,10 @@ footer p a:hover {
 
 .disabled {
     background-color: #666666;
-    outline: 2px solid #000000;
+    box-shadow: 3px 3px 0 0 #000000,
+                -3px -3px 0 0 #000000,
+                3px -3px 0 0 #000000,
+                -3px 3px 0 0 #000000;
 }
 
 .progress-bar {
