@@ -6,9 +6,6 @@
 
 {% block content %}
 
-  <p class="task-status">?</p>
-  <p class="task-state">?</p>
-  
   <div class="collage">
 
     <img class="collage__image" src="../static/images/uploads/{{ image }}" alt="PNG Collage Image">
@@ -29,6 +26,8 @@
   </div>
   
   <a class="btn download-btn" href="{{ url_for('main.download_image', filename=image) }}">DOWNLOAD</a>
+
+  <a class="btn new-collage-btn" href="{{ url_for('main.index') }}">NEW COLLAGE</a>
 
   <script src="{{ url_for('static', filename='js/loadimage.js') }}"></script>
 
