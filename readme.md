@@ -30,7 +30,7 @@ Development:
 
 ![tests](https://github.com/brandon-wallace/photo-collage-tool/actions/workflows/python-app.yml/badge.svg)
 
-## Screenshot 
+## Screenshots 
 
 ![screenshot 1](screenshot1.png)
 
@@ -40,9 +40,11 @@ Development:
 
 ## Example Images 
 
-![example image 1](collage_20211008-032021.png)
+![example image 1](collage_example_1.png)
 
-![example image 2](collage_20211008-040629.png)
+![example image 2](collage_example_2.png)
+
+![example image 3](collage_example_3.png)
 
 ## Installation
 
@@ -148,11 +150,13 @@ Browse to http://127.0.0.1:5000
 Set up a crontab to delete old files on the server.
 
 ```
+$ chmod +x /var/www/photo-collage/application/remove_files.py
+
 $ crontab -e
 
 # Add this line to run script every 10 minutes.
 
-10   *   *   *   *   python3 /var/www/photo-collage/application/remove_files.py
+*/10   *   *   *   *   /usr/bin/env python3 /var/www/photo-collage/application/remove_files.py
 ```
 
 
