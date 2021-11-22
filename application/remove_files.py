@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 application/remove_files.py
 
@@ -17,9 +18,7 @@ logger.setLevel(logging.INFO)
 handler = logging.handlers.SysLogHandler(address='/dev/log')
 logger.addHandler(handler)
 
-base_dir = Path('.').cwd()
-
-images_path = Path(base_dir / 'application' / 'static' / 'images' / 'uploads')
+images_path = Path('/var/www/photo-collage-tool/application/static/images/uploads')
 
 
 def remove_old_files(hours):
