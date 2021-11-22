@@ -1,8 +1,5 @@
 // application/static/js/loadimage.js
 
-let taskStatus = document.querySelector('.task-status');
-let taskState = document.querySelector('.task-state');
-
 const getStatus = () => {
     fetch('/queue')
     .then((response) => response.json())
