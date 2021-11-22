@@ -1,7 +1,7 @@
 '''
 application/remove_files.py
 
-Remove files after a specified time to save space.
+Remove files after a specified time to save space with logging to syslog.
 '''
 
 import logging
@@ -31,7 +31,7 @@ def remove_old_files(hours):
         modified_date_file = datetime.fromtimestamp(getmtime(image))
         if datetime.now() - modified_date_file > timedelta(hours=hours):
             total_size.append(image.stat().st_size)
-            print(f'DELETING: {image.name}')
+            logger.info(f'DELETING: {image.name}')
             image.unlink()
 
     total = sum([size + size for size in total_size])
