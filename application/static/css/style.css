@@ -129,9 +129,11 @@ form {
     margin-bottom: .25em;
 }
 
-.uploads > p {
+.uploads p {
     color: #0050CC;
     text-align: left;
+}
+.uploads p + p {
     margin-bottom: 2em;
 }
 
