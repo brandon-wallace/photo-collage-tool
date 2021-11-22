@@ -166,6 +166,7 @@ textarea {
     text-align: center;
     margin: 0 auto 1em auto;
     background-color: #0050CC;
+    outline: 2px solid #0050EE;
 }
 
 .btn:hover {
@@ -243,17 +244,19 @@ li {
 
 .flash-messages p {
     margin: 0;
-    color: #0050CC;
+    color: inherit;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
 }
 
 .success {
-    color: #FFE970;
+    color: #0050EE;
+    background-color: #FFE970;
 }
 
 .failure {
+    color: #FFFFFF;
     background-color: #EA3D3D;
 }
 
@@ -318,22 +321,27 @@ footer p a:hover {
             box-sizing: border-box;
 }
 
-.collage img {
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
 .collage__loader {
     width: 100px;
 }
 
 .collage__image {
     width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-height: 600px;
+    object-fit: contain;
 }
 
 .download-btn {
+    margin-bottom: 1em;
+}
+
+.new-collage-btn {
+    color: #0050EE;
     margin-bottom: 6em;
+    background-color: #FFE970;
 }
 
 .error-text {
