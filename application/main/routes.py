@@ -59,7 +59,7 @@ def save_image_file(image_file):
         images.save(image_file)
     except UploadNotAllowed:
         flash('File type not allowed.', 'failure')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.index', _external=True))
     return None
 
 
@@ -78,17 +78,17 @@ def uploads():
     all_files = []
     file_obj = request.files.getlist('images')
     if check_quantity(file_obj):
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.index', _external=True))
     for img in file_obj:
         if is_image_valid(img) is False:
             flash('Not a valid image file.', 'failure')
-            return redirect(url_for('main.index'))
+            return redirect(url_for('main.index', _external=True))
         img.filename = rename_image_file(img.filename)
         save_image_file(img)
         all_files.append(img.filename)
         session['uploads'] = all_files
     flash('Photos uploaded successfully', 'success')
-    return redirect(url_for('main.workspace'))
+    return redirect(url_for('main.workspace', _external=True))
 
 
 @main.route('/queue', methods=['GET', 'POST'])
@@ -147,7 +147,7 @@ async def create_collage(images):
                                         orientation], countdown=2)
         session['task_id'] = task.id
         session['collage'] = filename
-        return redirect(url_for('main.display_collage'))
+        return redirect(url_for('main.display_collage', _external=True))
     return render_template('main/workspace.html', form=form)
 
 
