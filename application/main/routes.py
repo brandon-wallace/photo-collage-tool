@@ -118,7 +118,7 @@ def set_default_background(background_color):
 
     if background_color == '#000001':
         return (0, 0, 0, 0)
-    return (0, 0, 1, 1)
+    return background_color
 
 
 @main.get('/workspace')

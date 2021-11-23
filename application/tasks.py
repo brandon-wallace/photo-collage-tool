@@ -28,7 +28,7 @@ def resize_image(images, size=500, border=0, background=(0, 0, 0, 0)):
         image_png = image_obj.convert('RGBA')
         image_resized = image_png.resize((size, size))
         image_with_border = ImageOps.expand(image_resized, border=border,
-                                            fill=(0, 0, 0, 0))
+                                            fill=background)
         filename = f'resized_{dt.utcnow().strftime("%Y%m%d-%H%M%S.%f")}.png'
         image_with_border.save(f'{upload_directory}/{filename}')
         resized_images.append(f'{filename}')
