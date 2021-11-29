@@ -542,6 +542,15 @@ footer p a:hover {
     -ms-animation: fadein ease 1500ms;
 }
 
+@-webkit-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @keyframes fadein {
     0% {
         opacity: 0;
