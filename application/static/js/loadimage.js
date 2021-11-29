@@ -43,5 +43,8 @@ const checkStatus = (imageElement) => {
 
 window.onload = function() {
     let imageFile = document.querySelector('.collage__image');
+    imageFile.addEventListener('load', () => {
+        imageFile.classList.add('fade-in');
+    });
     checkStatus(imageFile);
 }

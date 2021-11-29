@@ -70,7 +70,6 @@ if (collageImg) {
     });
 
     const hideLoader = (event) => {
-        console.log(`Hiding spinning loader.`);
         document.querySelector('.spinner').style.display = 'none';
     };
 

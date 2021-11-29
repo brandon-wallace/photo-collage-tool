@@ -534,6 +534,23 @@ footer p a:hover {
     }
 }
 
+.fade-in {
+    animation: fadein ease 1500ms;
+    -webkit-animation: fadein ease 1500ms;
+    -moz-animation: fadein ease 1500ms;
+    -o-animation: fadein ease 1500ms;
+    -ms-animation: fadein ease 1500ms;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @media only screen and (min-width: 800px) {
     .collage {
         max-width: 800px;
