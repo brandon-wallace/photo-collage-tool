@@ -34,27 +34,26 @@ if (uploadForm) {
 const fileInput = document.getElementById('images');
 const uploadBtn = document.querySelector('.upload-btn');
 
-if (uploadBtn) {
-    uploadBtn.disable = true;
-    uploadBtn.classList.add('disabled');
-}
-
 const checkFileSize = () => {
     const allFiles = [...fileInput.files];
     let totalSize = 0;
     for (let i = 0; i < allFiles.length; i++) {
         totalSize += allFiles[i].size;
+        if (totalSize === 0) {
+            return;
+        } else {
+            uploadBtn.disabled = false;
+            uploadBtn.classList.remove('disabled'); 
+        }
         if (allFiles[i].size > 20971520) {
             alert('File exceeds 20 MB limit.')
             return;
         } 
-        if (totalSize === 0) return;
-        uploadBtn.disabled = false;
-        uploadBtn.classList.remove('disabled'); 
     }
 }
 
 if (fileInput) {
+    uploadBtn.disabled = true;
     fileInput.addEventListener('change', checkFileSize);
 }
 
