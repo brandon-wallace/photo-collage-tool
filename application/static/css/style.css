@@ -258,14 +258,15 @@ li {
 }
 
 .failure {
-    color: #FFFFFF;
-    background-color: #EA3D3D;
+    color: #CC0000;
+    background-color: #FFE970;
+	border: 2px solid #CC0000;
 }
 
 .close {
     border: 0;
     padding: .5rem;
-    color: #0050CC;
+    color: inherit;
     cursor: pointer;
     font-size: 2rem;
     line-height: 26px;
