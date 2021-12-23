@@ -1,0 +1,13 @@
+{# application/templates/502.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}502 Bad Gateway Error{% endblock %}
+
+{% block content %}
+
+  <h1 class="error-text">502 Bad Gateway Error</h1>
+
+  <img class="error-image" src="{{ url_for('static', filename='images/blue_sad_face.png') }}" alt="Sad Face Image">
+
+{% endblock %}

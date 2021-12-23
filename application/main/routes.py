@@ -187,7 +187,7 @@ def terms_of_service():
 
 @main.app_errorhandler(404)
 def page_not_found(error):
-    '''404 Page not found'''
+    '''404 Page Not Found'''
 
     return render_template('404.html'), 404
 
@@ -201,6 +201,13 @@ def file_too_large(error):
 
 @main.app_errorhandler(500)
 def internal_server_error(error):
-    '''500 Internal server error'''
+    '''500 Internal Server Error'''
 
     return render_template('500.html'), 500
+
+
+@main.app_errorhandler(502)
+def bad_gateway_error(error):
+    '''502 Bad Gateway Error'''
+
+    return render_template('502.html'), 502
