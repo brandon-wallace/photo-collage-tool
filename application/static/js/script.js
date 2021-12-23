@@ -45,8 +45,8 @@ const checkFileSize = () => {
             uploadBtn.disabled = false;
             uploadBtn.classList.remove('disabled'); 
         }
-        if (allFiles[i].size > 20971520) {
-            alert('File exceeds 20 MB limit.')
+        if (allFiles[i].size > 5242880) {
+            alert('File exceeds 5 MB limit.')
             return;
         } 
     }
