@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="A photo collage tool">
+    <link rel="shortcut icon" href="static/images/favicon.ico">
+    <title>Maintenance - Photo Collage Tool</title>
+
+    <style>
+
+      @font-face {
+      font-family: "Arcus-Regular";
+      src: url("static/fonts/Arcus-Regular.eot?") format("eot"),
+          url("static/fonts/Arcus-Regular.woff") format("woff"),
+          url("static/fonts/Arcus-Regular.ttf") format("truetype"),
+          url("static/fonts/Arcus-Regular.svg#Arcus") format("svg");
+          font-weight: normal;
+          font-style: normal;
+      }
+      html,
+      body {
+	      margin: 0;
+	      padding: 0;
+	      width: 100%;
+	      height: 100%;
+	      font-size: 100%;
+	      scroll-behavior: smooth;
+      }
+      body {
+  	    margin: 0;
+  	    display: -webkit-box;
+  	    display: -ms-flexbox;
+  	    display: flex;
+  	    font-weight: 400;
+  	    line-height: 1.75;
+  	    min-height: 100vh;
+  	    background: #FFE970;
+  	    -webkit-box-orient: vertical;
+  	    -webkit-box-direction: normal;
+  	    -ms-flex-direction: column;
+  	    flex-direction: column;
+  	    font-family: "Arcus-Regular", monospace;
+      }
+      header {
+	      margin-bottom: 2em;
+      }
+      main {
+  	    width: 100%;
+  	    padding: .5em;
+  	    margin: 0 auto;
+  	    display: block;
+  	    -webkit-box-sizing: border-box;
+  	    box-sizing: border-box;
+      }
+      header h1 {
+        	color: #FFFFFF;
+        	font-size: 4rem;
+        	margin: 1rem 0 0 0;
+        	text-align: center;
+        	-webkit-transform: scale(1) rotate(-5deg) translateX(-13px) translateY(0) skewX(-5deg) skewY(-1deg);
+        	-ms-transform: scale(1) rotate(-5deg) translateX(-13px) translateY(0) skewX(-5deg) skewY(-1deg);
+        	transform: scale(1) rotate(-5deg) translateX(-13px) translateY(0) skewX(-5deg) skewY(-1deg);
+        	text-shadow: 1.25px 1.25px 0 #003A93,
+                      -1.25px -1.25px 0 #003A93,
+                      -1.25px 1.25px 0 #003A93,
+                      1.25px -1.25px 0 #003A93,
+                      1px 1px #0050EE,
+                      2px 2px #0050EE,
+                      3px 3px #0050EE,
+                      4px 4px #0050EE,
+                      5px 5px #0050EE,
+                      6px 6px #0050EE,
+                      7px 7px #0050EE,
+                      8px 8px #0050EE,
+                      9px 9px #0050EE,
+                      10px 10px #0050EE,
+                      11px 11px #0050EE,
+                      12px 12px #0050EE,
+                      13px 13px #0050EE,
+                      14px 14px #0050EE,
+                      15px 15px #0050EE,
+                      16px 16px #0050EE,
+                      17px 17px #0050EE,
+                      18px 18px #0050EE,
+                      19px 19px #0050EE,
+                      20px 20px #0050EE,
+                      21px 21px #0050EE,
+                      22px 22px #0050EE,
+                      23px 23px #0050EE,
+                      24px 24px #0050EE,
+                      25px 25px #0050EE,
+                      27px 27px 6px #000000;
+      }
+      .error {
+        	max-width: 900px;
+        	margin: 0 auto;
+      }
+      .error__text {
+        	color: #022A73;
+        	text-align: center;
+        	font-size: 3.052rem;
+      }
+      .error__img {
+        	display: block;
+        	margin: 0 auto 8em auto;
+        	max-width: 280px;
+      }
+      footer {
+    	    height: 125px;
+    	    margin-top: auto;
+    	    position: relative;
+    	    text-align: center;
+    	    background-color: #0050CC;
+      }
+      footer p,
+      footer p a {
+          color: #FFFFFF;
+      }
+      .wave-image {
+    	    left: 0;
+    	    right: 0;
+    	    width: 100%;
+    	    max-height: 170px;
+    	    bottom: 110px;
+    	    position: absolute;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- START header -->
+
+    <header>
+
+      <h1>Photo Collage Tool</h1>
+
+    </header>
+
+    <!-- END header -->
+
+    <!-- START main -->
+
+    <main>
+
+      <div class="error">
+
+        <h2 class="error__text">Sorry, Photocollagetool.art is temporarily down for scheduled maintenance.</h2>
+        <img class="error__img" src="static/images/blue_sad_face.png" alt="Unhappy face PNG image">
+
+      </div>
+
+    </main>
+
+    <!-- END main -->
+
+    <!-- START footer -->
+
+    <footer>
+
+      <img class="wave-image" src="static/images/wave.svg" alt="wave">
+
+      <p>Created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">Brandon Wallace</a> &copy; 2021</p>
+      <p><a class="login__link" href="templates/main/terms_of_service.html">Terms Of Service</a> and
+      <a class="login__link" href="templates/main/privacy_policy.html">Privacy Policy</a></p>
+
+    </footer>
+
+    <!-- END footer -->
+
+  </body>
+
+</html>
