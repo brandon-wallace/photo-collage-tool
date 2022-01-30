@@ -96,10 +96,7 @@ def get_status():
     '''Get task ID route'''
 
     task = merge_images.AsyncResult(session['task_id'])
-    print(f'TASK: {task}')
-    print(f'STATE: {task.state}')
-    print(f'READY: {task.ready()}')
-    print(f'STATUS: {task.status}')
+
     if task.state == 'PENDING':
         result = {
                 'state': task.ready(),
