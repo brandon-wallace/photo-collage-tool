@@ -28,37 +28,36 @@
 	      width: 100%;
 	      height: 100%;
 	      font-size: 100%;
-	      scroll-behavior: smooth;
       }
       body {
-  	    margin: 0;
-  	    display: -webkit-box;
-  	    display: -ms-flexbox;
-  	    display: flex;
-  	    font-weight: 400;
-  	    line-height: 1.75;
-  	    min-height: 100vh;
-  	    background: #FFE970;
-  	    -webkit-box-orient: vertical;
-  	    -webkit-box-direction: normal;
-  	    -ms-flex-direction: column;
-  	    flex-direction: column;
-  	    font-family: "Arcus-Regular", monospace;
+          margin: 0;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          font-weight: 400;
+          line-height: 1.75;
+          min-height: 100vh;
+          background: #FFE970;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          font-family: "Arcus-Regular", monospace;
       }
       header {
 	      margin-bottom: 2em;
       }
       main {
-  	    width: 100%;
-  	    padding: .5em;
-  	    margin: 0 auto;
-  	    display: block;
-  	    -webkit-box-sizing: border-box;
-  	    box-sizing: border-box;
+  	      width: 100%;
+  	      padding: .5em;
+  	      margin: 0 auto;
+  	      display: block;
+  	      -webkit-box-sizing: border-box;
+  	      box-sizing: border-box;
       }
       header h1 {
         	color: #FFFFFF;
-        	font-size: 4rem;
+        	font-size: 3rem;
         	margin: 1rem 0 0 0;
         	text-align: center;
         	-webkit-transform: scale(1) rotate(-5deg) translateX(-13px) translateY(0) skewX(-5deg) skewY(-1deg);
@@ -102,7 +101,7 @@
       .error__text {
         	color: #022A73;
         	text-align: center;
-        	font-size: 3.052rem;
+        	font-size: 2rem;
       }
       .error__img {
         	display: block;
@@ -110,24 +109,34 @@
         	max-width: 280px;
       }
       footer {
-    	    height: 125px;
-    	    margin-top: auto;
-    	    position: relative;
-    	    text-align: center;
-    	    background-color: #0050CC;
+    	  height: 200px;
+    	  margin-top: auto;
+    	  position: relative;
+    	  text-align: center;
+    	  display: flex;
+    	  flex-direction: column;
+    	  align-items: center;
+    	  justify-content: center;
+    	  background-color: #0050CC;
       }
       footer p,
       footer p a {
           color: #FFFFFF;
+          margin-bottom: 0;
       }
       .wave-image {
-    	    left: 0;
-    	    right: 0;
-    	    width: 100%;
-    	    max-height: 170px;
-    	    bottom: 110px;
-    	    position: absolute;
+    	  left: 0;
+    	  right: 0;
+    	  width: 100%;
+    	  max-height: 170px;
+    	  bottom: 200px;
+    	  position: absolute;
       }
+      @media only screen and (min-width: 800px) {
+            .error__text {
+            	font-size: 3.052rem;
+            }
+        }
 
     </style>
 
@@ -166,7 +175,7 @@
 
       <img class="wave-image" src="static/images/wave.svg" alt="wave">
 
-      <p>Created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">Brandon Wallace</a> &copy; 2021</p>
+      <p>Created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">Brandon Wallace</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
       <p><a class="login__link" href="templates/main/terms_of_service.html">Terms Of Service</a> and
       <a class="login__link" href="templates/main/privacy_policy.html">Privacy Policy</a></p>
 
