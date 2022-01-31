@@ -90,6 +90,28 @@ header h1 {
                 25px 25px #0050EE, 27px 27px 6px #000000; 
 }
 
+.fade-in {
+	-webkit-animation: fade-in 2000ms ease-in both;
+	        animation: fade-in 2000ms ease-in both;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 main {
     width: 100%;
     padding: .5em;
@@ -106,6 +128,37 @@ main p {
     font-size: 1rem;
     text-align: center;
     margin: 0 auto .25em auto;
+}
+
+
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 1000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-bottom 1000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 section {

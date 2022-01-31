@@ -8,8 +8,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="A photo collage tool">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="preload" href="/static/fonts/Arcus-Regular.woff" as="font" type="font/woff" crossorigin> 
     <link rel="stylesheet" media="screen,tv" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>{% block title %}Photo Collage Tool{% endblock %}</title>
+    <title>{% block title %}{% endblock %} - Photo Collage Tool</title>
 
   </head>
 
@@ -26,7 +27,7 @@
 
     <header>
 
-      <h1>Photo Collage Tool</h1>
+      <h1 class="fade-in">Photo Collage Tool</h1>
 
     </header>
 
@@ -34,7 +35,7 @@
 
     <!-- START main -->
 
-    <main>
+    <main class="slide-in-bottom">
 
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
